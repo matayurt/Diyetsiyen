@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+  }
+  
+  @keyframes float1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(200px, 100px) rotate(90deg); }
+    50% { transform: translate(100px, 300px) rotate(180deg); }
+    75% { transform: translate(-150px, 200px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+
+  @keyframes float2 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-200px, -150px) rotate(-120deg); }
+    66% { transform: translate(250px, -50px) rotate(-240deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
+  }
+
+  @keyframes float3 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(150px, -100px) rotate(72deg); }
+    40% { transform: translate(250px, 100px) rotate(144deg); }
+    60% { transform: translate(100px, 200px) rotate(216deg); }
+    80% { transform: translate(-100px, 100px) rotate(288deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+
+  @keyframes float4 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-200px, -200px) rotate(-90deg); }
+    50% { transform: translate(-300px, 0) rotate(-180deg); }
+    75% { transform: translate(-200px, 200px) rotate(-270deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
+  }
+
+  @keyframes float5 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    30% { transform: translate(300px, 100px) rotate(108deg); }
+    60% { transform: translate(150px, 300px) rotate(216deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+
+  @keyframes float6 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-150px, 200px) rotate(-120deg); }
+    66% { transform: translate(200px, 150px) rotate(-240deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
+  }
+
+  .fruit-float-1 {
+    animation: float1 20s infinite ease-in-out;
+  }
+  .fruit-float-2 {
+    animation: float2 25s infinite ease-in-out;
+  }
+  .fruit-float-3 {
+    animation: float3 22s infinite ease-in-out;
+  }
+  .fruit-float-4 {
+    animation: float4 28s infinite ease-in-out;
+  }
+  .fruit-float-5 {
+    animation: float5 24s infinite ease-in-out;
+  }
+  .fruit-float-6 {
+    animation: float6 26s infinite ease-in-out;
+  }
