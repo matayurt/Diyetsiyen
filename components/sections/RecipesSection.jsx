@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Clock, Users, ChevronRight, Utensils, BookOpen } from 'lucide-react';
+import { Search, Clock, Users, ChevronRight, Utensils, BookOpen, ChevronDown } from 'lucide-react';
 
-// Örnek tarif verisi
+// Genişletilmiş tarif verisi
 const recipes = [
   {
     id: 1,
@@ -13,6 +13,7 @@ const recipes = [
     prepTime: "15 dk",
     servings: "2 kişilik",
     calories: "320 kcal",
+    date: "2024-03-15",
     ingredients: [
       "1 su bardağı kinoa",
       "2 orta boy domates",
@@ -30,6 +31,55 @@ const recipes = [
   },
   {
     id: 2,
+    title: "Avokadolu Ton Balıklı Salata",
+    description: "Omega-3 ve sağlıklı yağlar açısından zengin pratik salata.",
+    image: "/api/placeholder/600/400",
+    category: "Salatalar",
+    prepTime: "10 dk",
+    servings: "1 kişilik",
+    calories: "350 kcal",
+    date: "2024-03-14",
+    ingredients: [
+      "1 adet olgun avokado",
+      "1 kutu ton balığı",
+      "1/4 kırmızı soğan",
+      "Cherry domates",
+      "Limon suyu",
+      "Zeytinyağı"
+    ],
+    instructions: [
+      "Avokadoyu ikiye bölüp çekirdeğini çıkarın.",
+      "Ton balığını süzün.",
+      "Soğanı ince doğrayın.",
+      "Tüm malzemeleri karıştırıp servis yapın."
+    ]
+  },
+  {
+    id: 3,
+    title: "Izgara Tavuklu Sezar Salata",
+    description: "Protein zengini, doyurucu akşam yemeği alternatifi.",
+    image: "/api/placeholder/600/400",
+    category: "Salatalar",
+    prepTime: "25 dk",
+    servings: "2 kişilik",
+    calories: "400 kcal",
+    date: "2024-03-13",
+    ingredients: [
+      "2 tavuk göğsü",
+      "1 kase marul",
+      "Light sezar sosu",
+      "Tam buğday kruton",
+      "Parmesan peyniri"
+    ],
+    instructions: [
+      "Tavukları ızgarada pişirin.",
+      "Marulları yıkayıp doğrayın.",
+      "Malzemeleri karıştırın.",
+      "Sosu ekleyip servis yapın."
+    ]
+  },
+  {
+    id: 4,
     title: "Yulaflı Protein Topları",
     description: "Ara öğün için ideal, enerjik ve besleyici atıştırmalık.",
     image: "/api/placeholder/600/400",
@@ -37,6 +87,7 @@ const recipes = [
     prepTime: "20 dk",
     servings: "8 adet",
     calories: "180 kcal",
+    date: "2024-03-15",
     ingredients: [
       "2 su bardağı yulaf",
       "2 yemek kaşığı fıstık ezmesi",
@@ -48,6 +99,78 @@ const recipes = [
       "Karışımdan ceviz büyüklüğünde toplar yapın.",
       "Buzdolabında 1 saat bekletin."
     ]
+  },
+  {
+    id: 5,
+    title: "Badem Sütlü Chia Puding",
+    description: "Sağlıklı ve besleyici kahvaltı alternatifi.",
+    image: "/api/placeholder/600/400",
+    category: "Atıştırmalıklar",
+    prepTime: "5 dk",
+    servings: "1 porsiyon",
+    calories: "220 kcal",
+    date: "2024-03-14",
+    ingredients: [
+      "3 yemek kaşığı chia tohumu",
+      "1 bardak badem sütü",
+      "1 tatlı kaşığı bal",
+      "Meyve (süsleme için)"
+    ],
+    instructions: [
+      "Chia ve badem sütünü karıştırın.",
+      "Balı ekleyip karıştırın.",
+      "Buzdolabında 4 saat bekletin.",
+      "Meyvelerle süsleyip servis yapın."
+    ]
+  },
+  {
+    id: 6,
+    title: "Fırında Sebzeli Tavuk",
+    description: "Düşük kalorili, protein açısından zengin akşam yemeği.",
+    image: "/api/placeholder/600/400",
+    category: "Ana Yemekler",
+    prepTime: "45 dk",
+    servings: "4 kişilik",
+    calories: "380 kcal",
+    date: "2024-03-15",
+    ingredients: [
+      "4 tavuk göğsü",
+      "2 patates",
+      "2 havuç",
+      "1 kabak",
+      "Zeytinyağı",
+      "Baharatlar"
+    ],
+    instructions: [
+      "Sebzeleri doğrayın.",
+      "Tavukları marine edin.",
+      "Tüm malzemeleri tepsiye dizin.",
+      "180 derecede 35 dk pişirin."
+    ]
+  },
+  {
+    id: 7,
+    title: "Diyet Magnolia",
+    description: "Düşük kalorili, lezzetli tatlı alternatifi.",
+    image: "/api/placeholder/600/400",
+    category: "Tatlılar",
+    prepTime: "20 dk",
+    servings: "4 porsiyon",
+    calories: "150 kcal",
+    date: "2024-03-15",
+    ingredients: [
+      "Yulaf ezmesi",
+      "Yağsız süt",
+      "Light labne",
+      "Şekersiz bisküvi",
+      "Meyve"
+    ],
+    instructions: [
+      "Bisküvileri rondodan geçirin.",
+      "Kremayı hazırlayın.",
+      "Katmanları oluşturun.",
+      "2 saat buzdolabında bekletin."
+    ]
   }
 ];
 
@@ -55,14 +178,50 @@ const RecipesSection = () => {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tümü');
+  const [showAllRecipes, setShowAllRecipes] = useState(false);
 
   const categories = ['Tümü', 'Salatalar', 'Atıştırmalıklar', 'Ana Yemekler', 'Tatlılar'];
 
-  const filteredRecipes = recipes.filter(recipe => {
-    const matchesSearch = recipe.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'Tümü' || recipe.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  // Tarifleri filtreleme ve sıralama
+  const getFilteredRecipes = () => {
+    let filtered = recipes;
+
+    // Arama filtrelemesi
+    if (searchTerm) {
+      filtered = filtered.filter(recipe =>
+        recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Kategori filtrelemesi
+    if (selectedCategory !== 'Tümü') {
+      filtered = filtered.filter(recipe => recipe.category === selectedCategory);
+    }
+
+    // Tarihe göre sıralama
+    filtered = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Eğer tüm tarifleri göster seçili değilse, her kategoriden son 3 tarifi göster
+    if (!showAllRecipes && selectedCategory === 'Tümü') {
+      const recipesByCategory = {};
+      filtered.forEach(recipe => {
+        if (!recipesByCategory[recipe.category]) {
+          recipesByCategory[recipe.category] = [];
+        }
+        recipesByCategory[recipe.category].push(recipe);
+      });
+
+      filtered = Object.values(recipesByCategory).flatMap(categoryRecipes => 
+        categoryRecipes.slice(0, 3)
+      );
+    } else if (!showAllRecipes) {
+      filtered = filtered.slice(0, 3);
+    }
+
+    return filtered;
+  };
+
+  const filteredRecipes = getFilteredRecipes();
 
   return (
     <div className="container mx-auto max-w-7xl px-4">
@@ -98,7 +257,10 @@ const RecipesSection = () => {
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setShowAllRecipes(false);
+                }}
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors
                   ${selectedCategory === category
                     ? 'bg-[#8aa542] text-white'
@@ -163,6 +325,19 @@ const RecipesSection = () => {
         ))}
       </div>
 
+      {/* Tüm Tarifleri Gör Butonu */}
+      {!showAllRecipes && filteredRecipes.length >= 3 && (
+        <div className="text-center mt-12">
+          <button
+            onClick={() => setShowAllRecipes(true)}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+          >
+            <span>Tüm Tarifleri Gör</span>
+            <ChevronDown size={18} />
+          </button>
+        </div>
+      )}
+
       {/* Tarif Detay Modal */}
       {selectedRecipe && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
@@ -172,7 +347,7 @@ const RecipesSection = () => {
             className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
           >
             <div className="relative h-64">
-              <img
+            <img
                 src={selectedRecipe.image}
                 alt={selectedRecipe.title}
                 className="w-full h-full object-cover"
@@ -230,6 +405,36 @@ const RecipesSection = () => {
                     </li>
                   ))}
                 </ol>
+              </div>
+
+              {/* Ekstra besin değerleri veya ipuçları için alan */}
+              <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+                <h4 className="text-lg font-bold mb-4">Besin Değerleri ve İpuçları</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-600">Protein</div>
+                    <div className="font-medium text-[#8aa542]">18g</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-600">Karbonhidrat</div>
+                    <div className="font-medium text-[#8aa542]">45g</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-600">Yağ</div>
+                    <div className="font-medium text-[#8aa542]">12g</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-600">Lif</div>
+                    <div className="font-medium text-[#8aa542]">6g</div>
+                  </div>
+                </div>
+                <div className="mt-4 p-4 bg-white rounded-lg border border-gray-100">
+                  <p className="text-sm text-gray-600 italic">
+                    <span className="font-medium">İpucu:</span> Bu tarifi öğle yemeği için hazırlayacaksanız, 
+                    bir gün önceden hazırlayıp buzdolabında saklayabilirsiniz. Böylece malzemeler daha iyi 
+                    bütünleşir ve lezzeti artar.
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>

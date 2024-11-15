@@ -2,13 +2,14 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { FaInstagram } from 'react-icons/fa';
-import { X, Menu } from 'lucide-react';
+import { X, Menu, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const menuItems = [
   { href: '#home', label: 'Ana Sayfa' },
   { href: '#about', label: 'Hakkımda' },
   { href: '#packets', label: 'Paketler' },
+  { href: '#recipes', label: 'Tarifler', icon: BookOpen },
   { href: '#testimonials', label: 'Başarı Hikayeleri' },
   { href: '#instagram', label: 'Instagram', icon: FaInstagram },
   { href: '#contact', label: 'İletişim' }
