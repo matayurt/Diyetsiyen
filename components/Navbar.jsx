@@ -2,17 +2,17 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { FaInstagram } from 'react-icons/fa';
-import { X, Menu, BookOpen } from 'lucide-react';
+import { X, Menu, BookOpen, Home, User, Package, Star, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const menuItems = [
-  { href: '#home', label: 'Ana Sayfa' },
-  { href: '#about', label: 'Hakkımda' },
-  { href: '#packets', label: 'Paketler' },
+  { href: '#home', label: 'Ana Sayfa', icon: Home },
+  { href: '#about', label: 'Hakkımda', icon: User },
+  { href: '#packets', label: 'Paketler', icon: Package },
+  { href: '#testimonials', label: 'Başarı Hikayeleri', icon: Star },
   { href: '#recipes', label: 'Tarifler', icon: BookOpen },
-  { href: '#testimonials', label: 'Başarı Hikayeleri' },
   { href: '#instagram', label: 'Instagram', icon: FaInstagram },
-  { href: '#contact', label: 'İletişim' }
+  { href: '#contact', label: 'İletişim', icon: MessageCircle }
 ];
 
 export default function Navbar() {
@@ -116,19 +116,19 @@ export default function Navbar() {
       <nav 
         className={`fixed top-0 left-0 w-full transition-all duration-300
           ${scrolled ? 'h-16 bg-white/95 backdrop-blur-md shadow-lg' : 'h-20 bg-transparent'}
-          ${isMenuOpen ? 'z-[60]' : 'z-50'}`}
+          ${isMenuOpen ? 'z-[60] bg-[#8aa542]' : 'z-50'}`}
       >
         <div className="container mx-auto px-4 h-full flex items-center justify-between relative">
           {/* Logo */}
           <a 
             href="#home" 
             onClick={handleMenuItemClick}
-            className="relative z-[70]"
+            className="relative z-[70] h-10"
           >
             <img 
               src="/assets/img/dietteiz-logo.png" 
               alt="DiyetTeiz Logo" 
-              className={`h-10 w-auto transition-all duration-300 ${isMenuOpen ? 'brightness-0 invert' : ''}`}
+              className={`h-full w-auto transition-colors duration-300 ${isMenuOpen ? 'brightness-0 invert' : ''}`}
             />
           </a>
 
@@ -142,7 +142,7 @@ export default function Navbar() {
                 className={`text-[#8aa542] hover:text-[#6b833a] transition-colors duration-300 
                   flex items-center gap-2 text-sm font-medium ${activeSection === item.href.slice(1) ? 'text-[#6b833a]' : ''}`}
               >
-                {item.icon && <item.icon size={18} />}
+                <item.icon size={18} />
                 <span className="relative">
                   {item.label}
                   {activeSection === item.href.slice(1) && (
@@ -162,14 +162,11 @@ export default function Navbar() {
             className="lg:hidden relative z-[70] w-10 h-10 flex items-center justify-center"
             aria-label={isMenuOpen ? 'Menüyü Kapat' : 'Menüyü Aç'}
           >
-            <div className={`w-6 h-6 relative ${isMenuOpen ? 'text-white' : 'text-[#8aa542]'}`}>
-              <span className={`absolute left-0 w-full h-0.5 transition-all duration-300 bg-current
-                ${isMenuOpen ? 'top-[11px] rotate-45' : 'top-1'}`} />
-              <span className={`absolute left-0 w-full h-0.5 transition-all duration-300 bg-current
-                ${isMenuOpen ? 'opacity-0' : 'opacity-100 top-[11px]'}`} />
-              <span className={`absolute left-0 w-full h-0.5 transition-all duration-300 bg-current
-                ${isMenuOpen ? 'top-[11px] -rotate-45' : 'top-5'}`} />
-            </div>
+            {isMenuOpen ? (
+              <Menu className="w-6 h-6 text-white" />
+            ) : (
+              <Menu className="w-6 h-6 text-[#8aa542]" />
+            )}
           </button>
         </div>
       </nav>
@@ -183,13 +180,22 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="lg:hidden fixed inset-0 z-[65] bg-gradient-to-b from-[#8aa542] to-[#758e30]"
           >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="absolute top-6 right-6 z-[70] w-10 h-10 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-300"
+              aria-label="Menüyü Kapat"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
             <div className="flex flex-col items-center justify-center min-h-screen px-6">
               {menuItems.map((item, index) => (
                 <motion.a
                   key={item.href}
                   href={item.href}
                   onClick={handleMenuItemClick}
-                  className="text-white text-2xl font-medium py-4 flex items-center gap-3"
+                  className="text-white text-2xl font-medium py-4 flex items-center gap-3 hover:text-white/80 transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ 
                     opacity: 1,
@@ -197,7 +203,7 @@ export default function Navbar() {
                     transition: { delay: 0.1 + index * 0.1 }
                   }}
                 >
-                  {item.icon && <item.icon size={24} />}
+                  <item.icon size={24} />
                   {item.label}
                 </motion.a>
               ))}

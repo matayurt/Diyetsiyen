@@ -80,7 +80,7 @@ const InstagramSection = () => {
 
       <div className="text-center">
         <a
-          href="https://www.instagram.com/yourprofile"
+          href="https://www.instagram.com/dyt.melikeozturk/"
           target="_blank"
           rel="noopener noreferrer"
           className="group inline-flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"

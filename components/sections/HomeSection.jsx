@@ -7,7 +7,7 @@ const features = [
   {
     icon: <Leaf className="w-8 h-8 text-green-600" />,
     title: "Sağlıklı Beslenme",
-    description: "Uzman diyetisyenlerimizle kişiselleştirilmiş beslenme planları"
+    description: "Uzman diyetisyeninizle kişiselleştirilmiş beslenme planları"
   },
   {
     icon: <Heart className="w-8 h-8 text-red-500" />,
@@ -35,7 +35,7 @@ const HomeSection = () => {
               words={['Sağlıklı Beslenme', 'Diyet Planları', 'Kilo Verme Tavsiyeleri']}
               loop={true}
               cursor
-              cursorStyle="_"
+              cursorStyle="|"
               typeSpeed={80}
               deleteSpeed={50}
               delaySpeed={1000}

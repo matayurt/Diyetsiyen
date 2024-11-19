@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Clock, Users, ChevronRight, Utensils, BookOpen, ChevronDown } from 'lucide-react';
+import { Clock, Users, ChevronDown, BookOpen, ChevronRight, Utensils, ArrowLeft, Heart, Share2, Calendar } from 'lucide-react';
+import Link from 'next/link';
+import { useRecipe } from '@/contexts/RecipeContext';
 
-// Genişletilmiş tarif verisi
 const recipes = [
   {
     id: 1,
     title: "Sağlıklı Kinoa Salatası",
     description: "Protein açısından zengin, besleyici ve lezzetli bir salata tarifi.",
-    image: "/api/placeholder/600/400",
+    image: "assets/recipes/kinoa-salad.jpg",
     category: "Salatalar",
     prepTime: "15 dk",
     servings: "2 kişilik",
     calories: "320 kcal",
     date: "2024-03-15",
+    difficulty: "Kolay",
+    nutrition: {
+      protein: "18",
+      carbs: "45",
+      fat: "12",
+      fiber: "6"
+    },
     ingredients: [
       "1 su bardağı kinoa",
       "2 orta boy domates",
@@ -27,7 +36,8 @@ const recipes = [
       "Sebzeleri küp küp doğrayın.",
       "Tüm malzemeleri karıştırın.",
       "Zeytinyağı ve limon ile tatlandırın."
-    ]
+    ],
+    tips: "Kinoanın daha lezzetli olması için haşlamadan önce tavada hafifçe kavurabilirsiniz."
   },
   {
     id: 2,
@@ -39,6 +49,13 @@ const recipes = [
     servings: "1 kişilik",
     calories: "350 kcal",
     date: "2024-03-14",
+    difficulty: "Kolay",
+    nutrition: {
+      protein: "22",
+      carbs: "15",
+      fat: "28",
+      fiber: "8"
+    },
     ingredients: [
       "1 adet olgun avokado",
       "1 kutu ton balığı",
@@ -52,7 +69,8 @@ const recipes = [
       "Ton balığını süzün.",
       "Soğanı ince doğrayın.",
       "Tüm malzemeleri karıştırıp servis yapın."
-    ]
+    ],
+    tips: "Avokadonun tazeligini korumak için limon suyunu hemen ekleyin."
   },
   {
     id: 3,
@@ -64,6 +82,13 @@ const recipes = [
     servings: "2 kişilik",
     calories: "400 kcal",
     date: "2024-03-13",
+    difficulty: "Orta",
+    nutrition: {
+      protein: "35",
+      carbs: "20",
+      fat: "25",
+      fiber: "4"
+    },
     ingredients: [
       "2 tavuk göğsü",
       "1 kase marul",
@@ -76,7 +101,8 @@ const recipes = [
       "Marulları yıkayıp doğrayın.",
       "Malzemeleri karıştırın.",
       "Sosu ekleyip servis yapın."
-    ]
+    ],
+    tips: "Tavukları marine ederek daha lezzetli bir sonuç elde edebilirsiniz."
   },
   {
     id: 4,
@@ -88,6 +114,13 @@ const recipes = [
     servings: "8 adet",
     calories: "180 kcal",
     date: "2024-03-15",
+    difficulty: "Kolay",
+    nutrition: {
+      protein: "8",
+      carbs: "22",
+      fat: "6",
+      fiber: "3"
+    },
     ingredients: [
       "2 su bardağı yulaf",
       "2 yemek kaşığı fıstık ezmesi",
@@ -98,7 +131,8 @@ const recipes = [
       "Tüm malzemeleri karıştırın.",
       "Karışımdan ceviz büyüklüğünde toplar yapın.",
       "Buzdolabında 1 saat bekletin."
-    ]
+    ],
+    tips: "Daha çıtır bir doku için içine kırılmış badem ekleyebilirsiniz."
   },
   {
     id: 5,
@@ -110,6 +144,13 @@ const recipes = [
     servings: "1 porsiyon",
     calories: "220 kcal",
     date: "2024-03-14",
+    difficulty: "Kolay",
+    nutrition: {
+      protein: "6",
+      carbs: "25",
+      fat: "12",
+      fiber: "10"
+    },
     ingredients: [
       "3 yemek kaşığı chia tohumu",
       "1 bardak badem sütü",
@@ -121,7 +162,8 @@ const recipes = [
       "Balı ekleyip karıştırın.",
       "Buzdolabında 4 saat bekletin.",
       "Meyvelerle süsleyip servis yapın."
-    ]
+    ],
+    tips: "Daha kremamsı bir kıvam için blenderdan geçirebilirsiniz."
   },
   {
     id: 6,
@@ -133,6 +175,13 @@ const recipes = [
     servings: "4 kişilik",
     calories: "380 kcal",
     date: "2024-03-15",
+    difficulty: "Orta",
+    nutrition: {
+      protein: "32",
+      carbs: "25",
+      fat: "18",
+      fiber: "5"
+    },
     ingredients: [
       "4 tavuk göğsü",
       "2 patates",
@@ -146,7 +195,8 @@ const recipes = [
       "Tavukları marine edin.",
       "Tüm malzemeleri tepsiye dizin.",
       "180 derecede 35 dk pişirin."
-    ]
+    ],
+    tips: "Pişirme kağıdı kullanarak sebzelerin yapışmasını önleyebilirsiniz."
   },
   {
     id: 7,
@@ -158,6 +208,13 @@ const recipes = [
     servings: "4 porsiyon",
     calories: "150 kcal",
     date: "2024-03-15",
+    difficulty: "Orta",
+    nutrition: {
+      protein: "5",
+      carbs: "18",
+      fat: "6",
+      fiber: "2"
+    },
     ingredients: [
       "Yulaf ezmesi",
       "Yağsız süt",
@@ -170,277 +227,208 @@ const recipes = [
       "Kremayı hazırlayın.",
       "Katmanları oluşturun.",
       "2 saat buzdolabında bekletin."
-    ]
+    ],
+    tips: "Şeker yerine stevia kullanarak kaloriyi daha da düşürebilirsiniz."
+  },
+  {
+    id: 8,
+    title: "Akdeniz Usulü Sebzeli Makarna",
+    description: "Tam buğday makarnası ile sağlıklı ve doyurucu bir öğün.",
+    image: "/api/placeholder/600/400",
+    category: "Ana Yemekler",
+    prepTime: "25 dk",
+    servings: "4 kişilik",
+    calories: "380 kcal",
+    date: "2024-03-16",
+    difficulty: "Orta",
+    nutrition: {
+      protein: "12",
+      carbs: "65",
+      fat: "8",
+      fiber: "9"
+    },
+    ingredients: [
+      "300gr tam buğday makarna",
+      "2 kabak",
+      "2 patlıcan",
+      "3 domates",
+      "Zeytinyağı",
+      "Taze fesleğen",
+      "Parmesan peyniri"
+    ],
+    instructions: [
+      "Makarnayı al dente haşlayın.",
+      "Sebzeleri küp küp doğrayın.",
+      "Sebzeleri zeytinyağında soteleyin.",
+      "Makarna ile karıştırıp servis yapın.",
+      "Üzerine parmesan rendeleyin."
+    ],
+    tips: "Sebzeleri önceden marine ederek daha lezzetli bir sonuç elde edebilirsiniz."
+  },
+  {
+    id: 9,
+    title: "Hindistan Cevizli Chia Puding",
+    description: "Tropikal lezzetlerle buluşan sağlıklı kahvaltı alternatifi.",
+    image: "/api/placeholder/600/400",
+    category: "Atıştırmalıklar",
+    prepTime: "10 dk",
+    servings: "2 kişilik",
+    calories: "250 kcal",
+    date: "2024-03-17",
+    difficulty: "Kolay",
+    nutrition: {
+      protein: "8",
+      carbs: "32",
+      fat: "14",
+      fiber: "12"
+    },
+    ingredients: [
+      "4 yemek kaşığı chia tohumu",
+      "1 bardak hindistan cevizi sütü",
+      "1 yemek kaşığı bal",
+      "Taze meyveler",
+      "Hindistan cevizi rendesi"
+    ],
+    instructions: [
+      "Chia ve hindistan cevizi sütünü karıştırın.",
+      "Balı ekleyip iyice karıştırın.",
+      "Buzdolabında 4 saat bekletin.",
+      "Meyveler ve hindistan cevizi ile süsleyin."
+    ],
+    tips: "Daha yoğun bir hindistan cevizi aroması için hindistan cevizi sütü kreması kullanabilirsiniz."
   }
 ];
 
 const RecipesSection = () => {
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Tümü');
-  const [showAllRecipes, setShowAllRecipes] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('Salatalar');
+  // const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const { setSelectedRecipe } = useRecipe();
+  const [mounted, setMounted] = useState(false);
+  const categories = ['Salatalar', 'Atıştırmalıklar', 'Ana Yemekler', 'Tatlılar'];
 
-  const categories = ['Tümü', 'Salatalar', 'Atıştırmalıklar', 'Ana Yemekler', 'Tatlılar'];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  // Tarifleri filtreleme ve sıralama
-  const getFilteredRecipes = () => {
-    let filtered = recipes;
-
-    // Arama filtrelemesi
-    if (searchTerm) {
-      filtered = filtered.filter(recipe =>
-        recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // Kategori filtrelemesi
-    if (selectedCategory !== 'Tümü') {
-      filtered = filtered.filter(recipe => recipe.category === selectedCategory);
-    }
-
-    // Tarihe göre sıralama
-    filtered = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    // Eğer tüm tarifleri göster seçili değilse, her kategoriden son 3 tarifi göster
-    if (!showAllRecipes && selectedCategory === 'Tümü') {
-      const recipesByCategory = {};
-      filtered.forEach(recipe => {
-        if (!recipesByCategory[recipe.category]) {
-          recipesByCategory[recipe.category] = [];
-        }
-        recipesByCategory[recipe.category].push(recipe);
-      });
-
-      filtered = Object.values(recipesByCategory).flatMap(categoryRecipes => 
-        categoryRecipes.slice(0, 3)
-      );
-    } else if (!showAllRecipes) {
-      filtered = filtered.slice(0, 3);
-    }
-
-    return filtered;
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
+
+  const getFilteredRecipes = () => {
+    const recipesByCategory = {};
+    recipes.forEach(recipe => {
+      if (!recipesByCategory[recipe.category]) {
+        recipesByCategory[recipe.category] = [];
+      }
+      recipesByCategory[recipe.category].push(recipe);
+    });
+   
+    Object.keys(recipesByCategory).forEach(category => {
+      recipesByCategory[category].sort((a, b) => new Date(b.date) - new Date(a.date));
+    });
+   
+    return recipesByCategory[selectedCategory]?.slice(0, 3) || [];
+  };
+
+  if (!mounted) return null;
 
   const filteredRecipes = getFilteredRecipes();
 
   return (
-    <div className="container mx-auto max-w-7xl px-4">
-      {/* Başlık */}
-      <div className="text-center mb-16">
+    <section className="bg-gray-50" id="recipes">
+      <div className="container mx-auto max-w-7xl px-4 py-16">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold mb-4 text-[#8aa542]"
+          className="text-4xl font-bold mb-8 text-center text-[#8aa542]"
         >
-          Sağlıklı Tarifler
+          Sağlıklı Yaşam İçin En İyi Tarifler
         </motion.h2>
-        <p className="text-gray-600 text-lg">
-          Lezzetli ve besleyici tarifleri keşfedin
-        </p>
-      </div>
 
-      {/* Arama ve Filtreleme */}
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <input
-              type="text"
-              placeholder="Tarif ara..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#8aa542] focus:border-transparent"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 w-full md:w-auto">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  setSelectedCategory(category);
-                  setShowAllRecipes(false);
-                }}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors
-                  ${selectedCategory === category
-                    ? 'bg-[#8aa542] text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+        <div className="mb-8 flex flex-wrap justify-center gap-4">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategoryChange(category)}
+              className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
+                ${selectedCategory === category
+                  ? 'bg-[#8aa542] text-white shadow-lg scale-105'
+                  : 'bg-white text-gray-600 hover:bg-gray-100 hover:scale-105'
+                }`}
+            >
+              {category}
+            </button>
+          ))}
         </div>
-      </div>
 
-      {/* Tarifler Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredRecipes.map((recipe) => (
-          <motion.div
-            key={recipe.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          >
-            <div className="relative h-48">
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-4 right-4">
-                <span className="px-3 py-1 bg-white/90 rounded-full text-sm font-medium text-[#8aa542]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredRecipes.map((recipe) => (
+            <motion.div
+              key={recipe.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="absolute top-4 right-4 px-4 py-2 bg-white/90 rounded-full text-sm font-medium text-[#8aa542]">
                   {recipe.category}
                 </span>
               </div>
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">{recipe.title}</h3>
-              <p className="text-gray-600 mb-4">{recipe.description}</p>
-              <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                <div className="flex items-center gap-1">
-                  <Clock size={16} />
-                  <span>{recipe.prepTime}</span>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2 group-hover:text-[#8aa542] transition-colors">
+                  {recipe.title}
+                </h3>
+                <p className="text-gray-600 mb-4 line-clamp-2">{recipe.description}</p>
+                <div className="flex items-center gap-6 text-sm text-gray-500 mb-6">
+                  <div className="flex items-center gap-2">
+                    <Clock size={18} />
+                    <span>{recipe.prepTime}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users size={18} />
+                    <span>{recipe.servings}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Users size={16} />
-                  <span>{recipe.servings}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Utensils size={16} />
-                  <span>{recipe.calories}</span>
-                </div>
+                <button
+                  onClick={() => setSelectedRecipe(recipe)}
+                  className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-[#8aa542] text-white hover:bg-[#758e30] transition-colors"
+                >
+                  <BookOpen size={18} />
+                  <span>Tarifi Görüntüle</span>
+                </button>
               </div>
-              <button
-                onClick={() => setSelectedRecipe(recipe)}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-[#8aa542] text-white hover:bg-[#758e30] transition-colors"
-              >
-                <BookOpen size={18} />
-                <span>Tarifi Görüntüle</span>
-              </button>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Link
+            href="/recipes"
+            className="group relative inline-flex items-center gap-3 px-10 py-4 rounded-xl bg-[#8aa542] text-white hover:bg-[#758e30] transition-all duration-300 overflow-hidden shadow-lg hover:shadow-xl"
+          >
+            <span className="relative z-10 text-lg font-medium">Tüm Tarifleri Keşfet</span>
+            <ChevronDown size={22} className="relative z-10 group-hover:transform group-hover:translate-y-1 transition-transform" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8aa542] to-[#758e30] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+          <p className="mt-4 text-gray-600">
+            {recipes.length}+ sağlıklı ve lezzetli tarif seni bekliyor!
+          </p>
+        </motion.div>
       </div>
-
-      {/* Tüm Tarifleri Gör Butonu */}
-      {!showAllRecipes && filteredRecipes.length >= 3 && (
-        <div className="text-center mt-12">
-          <button
-            onClick={() => setShowAllRecipes(true)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
-          >
-            <span>Tüm Tarifleri Gör</span>
-            <ChevronDown size={18} />
-          </button>
-        </div>
-      )}
-
-      {/* Tarif Detay Modal */}
-      {selectedRecipe && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
-          >
-            <div className="relative h-64">
-            <img
-                src={selectedRecipe.image}
-                alt={selectedRecipe.title}
-                className="w-full h-full object-cover"
-              />
-              <button
-                onClick={() => setSelectedRecipe(null)}
-                className="absolute top-4 right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors"
-              >
-                ×
-              </button>
-            </div>
-            <div className="p-8">
-              <h3 className="text-2xl font-bold mb-2">{selectedRecipe.title}</h3>
-              <p className="text-gray-600 mb-6">{selectedRecipe.description}</p>
-              
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Clock className="w-6 h-6 mx-auto mb-2 text-[#8aa542]" />
-                  <div className="text-sm text-gray-600">Hazırlama</div>
-                  <div className="font-medium">{selectedRecipe.prepTime}</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Users className="w-6 h-6 mx-auto mb-2 text-[#8aa542]" />
-                  <div className="text-sm text-gray-600">Porsiyon</div>
-                  <div className="font-medium">{selectedRecipe.servings}</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Utensils className="w-6 h-6 mx-auto mb-2 text-[#8aa542]" />
-                  <div className="text-sm text-gray-600">Kalori</div>
-                  <div className="font-medium">{selectedRecipe.calories}</div>
-                </div>
-              </div>
-
-              <div className="mb-8">
-                <h4 className="text-xl font-bold mb-4">Malzemeler</h4>
-                <ul className="space-y-2">
-                  {selectedRecipe.ingredients.map((ingredient, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <ChevronRight className="w-4 h-4 text-[#8aa542]" />
-                      <span>{ingredient}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="text-xl font-bold mb-4">Hazırlanışı</h4>
-                <ol className="space-y-4">
-                  {selectedRecipe.instructions.map((instruction, index) => (
-                    <li key={index} className="flex gap-4">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#8aa542] text-white flex items-center justify-center">
-                        {index + 1}
-                      </span>
-                      <span>{instruction}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              {/* Ekstra besin değerleri veya ipuçları için alan */}
-              <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-                <h4 className="text-lg font-bold mb-4">Besin Değerleri ve İpuçları</h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center">
-                    <div className="text-sm text-gray-600">Protein</div>
-                    <div className="font-medium text-[#8aa542]">18g</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-sm text-gray-600">Karbonhidrat</div>
-                    <div className="font-medium text-[#8aa542]">45g</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-sm text-gray-600">Yağ</div>
-                    <div className="font-medium text-[#8aa542]">12g</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-sm text-gray-600">Lif</div>
-                    <div className="font-medium text-[#8aa542]">6g</div>
-                  </div>
-                </div>
-                <div className="mt-4 p-4 bg-white rounded-lg border border-gray-100">
-                  <p className="text-sm text-gray-600 italic">
-                    <span className="font-medium">İpucu:</span> Bu tarifi öğle yemeği için hazırlayacaksanız, 
-                    bir gün önceden hazırlayıp buzdolabında saklayabilirsiniz. Böylece malzemeler daha iyi 
-                    bütünleşir ve lezzeti artar.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </div>
+    </section>
   );
 };
 
