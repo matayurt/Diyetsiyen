@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import { RecipeProvider } from '@/contexts/RecipeContext';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
   title: 'Modern Website',
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <RecipeProvider>
         <Navbar />
           {children}
+          <SpeedInsights />
         </RecipeProvider>
       </body>
     </html>
