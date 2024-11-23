@@ -32,7 +32,7 @@ const HomeSection = () => {
         <h1 className="text-4xl md:text-6xl font-extrabold mb-8">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8aa542] to-[#8aa542]">
             <Typewriter
-              words={['Sağlıklı Beslenme', 'Diyet Planları', 'Kilo Verme Tavsiyeleri']}
+              words={['Sağlıklı Beslenme', 'Diyet Planları', 'Kilo Verme']}
               loop={true}
               cursor
               cursorStyle="|"
