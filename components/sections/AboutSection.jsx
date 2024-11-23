@@ -40,7 +40,7 @@ const AboutSection = () => {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
-                <span className="text-3xl font-bold text-[#8aa542] mr-2">10</span>
+                <span className="text-3xl font-bold text-[#8aa542] mr-2">7</span>
                 <span className="text-sm text-gray-600 leading-tight">Yıllık<br/>Deneyim</span>
               </div>
               <div className="flex items-center bg-white p-4 rounded-lg shadow-md">

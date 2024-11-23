@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { FaInstagram } from 'react-icons/fa';
-import { X, Menu, BookOpen, Home, User, Package, Star, MessageCircle } from 'lucide-react';
+import { X, Menu, BookOpen, Home, User, Package, Star, MessageCircle, Share2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const menuItems = [
   { href: '#home', label: 'Ana Sayfa', icon: Home },
@@ -11,7 +11,7 @@ const menuItems = [
   { href: '#packets', label: 'Paketler', icon: Package },
   { href: '#testimonials', label: 'Başarı Hikayeleri', icon: Star },
   { href: '#recipes', label: 'Tarifler', icon: BookOpen },
-  { href: '#instagram', label: 'Instagram', icon: FaInstagram },
+  { href: '#instagram', label: 'Sosyal Medya', icon: Share2 },
   { href: '#contact', label: 'İletişim', icon: MessageCircle }
 ];
 
@@ -120,9 +120,8 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-4 h-full flex items-center justify-between relative">
           {/* Logo */}
-          <a 
-            href="#home" 
-            onClick={handleMenuItemClick}
+          <Link 
+            href="/"
             className="relative z-[70] h-10"
           >
             <img 
@@ -130,7 +129,7 @@ export default function Navbar() {
               alt="DiyetTeiz Logo" 
               className={`h-full w-auto transition-colors duration-300 ${isMenuOpen ? 'brightness-0 invert' : ''}`}
             />
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">

@@ -2,14 +2,20 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Share2, Clock, Users, ChevronRight, Utensils, Heart, Calendar } from 'lucide-react';
 import { useRecipe } from '@/contexts/RecipeContext';
+import Image from 'next/image';
+import ShareMenu from './ShareMenu';
+import { useRouter } from 'next/navigation';
 
 export default function Modal() {
     const { selectedRecipe: recipe, setSelectedRecipe } = useRecipe();
     const [imageLoaded, setImageLoaded] = useState(false);
+    const router = useRouter();
   
     useEffect(() => {
       if (recipe) {
         document.body.style.overflow = 'hidden';
+        // URL'i güncelle ama sayfayı yenileme
+        window.history.pushState({}, '', `/recipe/${recipe.id}`);
       } else {
         document.body.style.overflow = 'unset';
       }
@@ -20,7 +26,11 @@ export default function Modal() {
   
     if (!recipe) return null;
   
-    const onClose = () => setSelectedRecipe(null);
+    const onClose = () => {
+      setSelectedRecipe(null);
+      // Modal kapandığında URL'i geri al
+      window.history.pushState({}, '', '/');
+    };
   
     return (
       <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
@@ -43,21 +53,7 @@ export default function Modal() {
                 <span>Geri Dön</span>
               </button>
               <div>
-                <button
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && navigator.share) {
-                      navigator.share({
-                        title: recipe.title,
-                        text: recipe.description,
-                        url: window.location.href
-                      });
-                    }
-                  }}
-                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-[#8aa542] rounded-lg hover:bg-gray-100 transition-all"
-                >
-                  <Share2 size={20} />
-                  <span className="hidden sm:inline">Paylaş</span>
-                </button>
+                <ShareMenu recipe={recipe} />
               </div>
             </div>
           </div>
@@ -67,14 +63,19 @@ export default function Modal() {
             <div className="h-full lg:grid lg:grid-cols-2">
               {/* Left Side - Image Section (Fixed) */}
               <div className="relative h-72 md:h-96 lg:h-full">
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  onLoad={() => setImageLoaded(true)}
-                  className={`w-full h-full object-cover transition-opacity duration-500 ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={recipe.image}
+                    alt={recipe.title}
+                    fill
+                    priority
+                    className={`object-cover object-center transition-opacity duration-500 ${
+                      imageLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    onLoadingComplete={() => setImageLoaded(true)}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 
                 {/* Image Overlay Content */}

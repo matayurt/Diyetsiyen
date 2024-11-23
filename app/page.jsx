@@ -1,7 +1,5 @@
-// page.jsx
 'use client';
-
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeSection from '@/components/sections/HomeSection';
 import AboutSection from '@/components/sections/AboutSection';
 import PacketsSection from '@/components/sections/PacketsSection';
@@ -175,42 +173,24 @@ const FloatingFruits = () => (
 const Section = ({ id, className, children }) => (
   <section 
     id={id} 
-    className={`w-full h-auto md:min-h-screen py-16 flex flex-col items-center justify-center px-4 relative overflow-hidden ${className}`}
+    className={`relative w-full min-h-screen pt-24 pb-16 flex flex-col items-center justify-center ${className}`}
   >
     {/* Background decorative elements */}
-    <div className="absolute inset-0 opacity-30">
+    <div className="absolute inset-0 -z-10 opacity-30 pointer-events-none overflow-hidden">
       <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-green-200/20 rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute top-1/2 right-0 w-1/3 h-2/3 bg-blue-200/20 rounded-full filter blur-3xl transform translate-x-1/3" />
       <div className="absolute bottom-0 left-1/4 w-1/2 h-1/2 bg-purple-200/20 rounded-full filter blur-3xl" />
     </div>
 
-    {/* Render floating fruits only in the "home" section */}
-    {id === 'home' && <FloatingFruits />}
+    {/* Floating fruits sadece home section'da */}
+    {id === 'home' && <div className="-z-10 pointer-events-none overflow-hidden"><FloatingFruits /></div>}
     
-    <div className="relative z-10 w-full max-w-7xl mx-auto">
+    <div className="relative w-full max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
       {children}
     </div>
   </section>
 );
 
-const NavigationDots = ({ activeSection }) => (
-  <nav className="fixed right-10 top-1/2 transform -translate-y-1/2 hidden md:flex flex-col space-y-4 z-50">
-    {Object.entries(SECTIONS).map(([id, label]) => (
-      <a
-        key={id}
-        href={`#${id}`}
-        aria-label={label}
-        className="block"
-      >
-        <div
-          className={`w-4 h-4 rounded-full border-2 border-[#8aa542] ${
-            activeSection === id ? 'bg-[#8aa542]' : 'opacity-50'
-          } transition-opacity duration-300`}
-        />
-      </a>
-    ))}
-  </nav>
-);
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState('home');
@@ -236,47 +216,67 @@ export default function HomePage() {
 
   return (
     <RecipeProvider>
-    <main className="relative w-full overflow-x-hidden">
-      {/* Fixed background gradients */}
-      <div className="fixed inset-0 bg-gradient-to-b from-white via-green-50/50 to-white pointer-events-none" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-100/30 via-transparent to-blue-100/30 pointer-events-none" />
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--tw-gradient-stops))] from-white via-green-50/20 to-transparent opacity-60 pointer-events-none" />
+      <main className="relative min-h-screen overflow-x-hidden">
+        {/* Fixed background gradients */}
+        <div className="fixed inset-0 -z-50 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-green-50/50 to-white" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-100/30 via-transparent to-blue-100/30" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--tw-gradient-stops))] from-white via-green-50/20 to-transparent opacity-60" />
+        </div>
 
-      {/* Content */}
-      <div className="relative w-full">
-        <Section id="home" className="relative backdrop-blur-sm bg-white/30">
-          <HomeSection />
-        </Section>
+        {/* Content */}
+        <div className="relative z-10">
+          <Section id="home" className="relative bg-white/30">
+            <HomeSection />
+          </Section>
+          
+          <Section id="about" className="bg-white/30">
+            <AboutSection />
+          </Section>
+
+          <Section id="packets" className="bg-white/40">
+            <PacketsSection />
+          </Section>
+
+          <Section id="testimonials" className="bg-white/30">
+            <TestimonialsSection />
+          </Section>
+
+          <Section id="recipes" className="bg-white/30">
+            <RecipesSection />
+          </Section>
+
+          <Section id="instagram" className="bg-white/40">
+            <InstagramSection />
+          </Section>
+
+          <Section id="contact" className="bg-white/30">
+            <ContactSection />
+          </Section>
+        </div>
+
+        {/* Navigation Dots */}
+        {isClient && (
+          <nav className="fixed right-6 lg:right-10 top-1/2 transform -translate-y-1/2 hidden md:flex flex-col space-y-4 z-[60]">
+            {Object.entries(SECTIONS).map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                aria-label={label}
+                className="block"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full border-2 border-[#8aa542] ${
+                    activeSection === id ? 'bg-[#8aa542]' : 'opacity-50'
+                  } transition-opacity duration-300`}
+                />
+              </a>
+            ))}
+          </nav>
+        )}
         
-        <Section id="about" className="backdrop-blur-sm bg-white/30">
-          <AboutSection />
-        </Section>
-
-        <Section id="packets" className="backdrop-blur-sm bg-white/40">
-          <PacketsSection />
-        </Section>
-
-        <Section id="testimonials" className="backdrop-blur-sm bg-white/30">
-          <TestimonialsSection />
-        </Section>
-
-        <Section id="recipes" className="backdrop-blur-sm bg-white/30">
-          <RecipesSection />
-        </Section>
-
-        <Section id="instagram" className="backdrop-blur-sm bg-white/40">
-          <InstagramSection />
-        </Section>
-
-        <Section id="contact" className="backdrop-blur-sm bg-white/30">
-          <ContactSection />
-        </Section>
-      </div>
-
-      {/* Navigation Dots - Only render on client side */}
-      {isClient && <NavigationDots activeSection={activeSection} />}
-      <Modal />
-    </main>
+        <Modal />
+      </main>
     </RecipeProvider>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Calendar, TrendingUp, MessageCircle, Star, Quote } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, TrendingUp, MessageCircle, Star, Quote, User } from 'lucide-react';
 
 const testimonials = [
   {
@@ -11,7 +11,7 @@ const testimonials = [
     duration: "3 Ay",
     startWeight: "85 KG",
     currentWeight: "60 KG",
-    comment: "Program ile birlikte sadece kilo vermekle kalmadım, yaşam tarzımı tamamen değiştirdim."
+    comment: "Benim yıllardır verdiğim uğraşlar sonucu gitmeyen kilolarımı güzel tatlı dili motivasyonuyla bana uygun yaptığı listeleriyle sıkmadan bunaltmadan kilolarıma elveda dedirten canım diyetisyenim."
   },
   {
     text: "Kişiselleştirilmiş yaklaşımları çok başarılı.",
@@ -21,17 +21,17 @@ const testimonials = [
     duration: "4 Ay",
     startWeight: "95 KG",
     currentWeight: "75 KG",
-    comment: "Profesyonel yaklaşım ve sürekli destek sayesinde hedeflerime ulaştım."
+    comment: "Kendisine nekadar tesekkür etsem azdır doğum sonrası kilolarımı hic veremiyeceğim sanıyordum sağolsun 4 ayda 20 kg verdim bende inanamadım ve kesinlikle spor yapmadığım halde tekrar tekrar tesekkürler doktorum."
   },
   {
     text: "6 ayda hedeflerime ulaştım!",
     author: "Zeynep A.",
     rating: 5,
-    weightLoss: "-15 KG",
+    weightLoss: "-25 KG",
     duration: "6 Ay",
-    startWeight: "75 KG",
-    currentWeight: "60 KG",
-    comment: "Sağlıklı ve kalıcı kilo verme konusunda harika bir deneyimdi."
+    startWeight: "80 KG",
+    currentWeight: "55 KG",
+    comment: "Benim Melike hanımla yolum bundan 6 ay önce kesisti. Onunla toplamda 25 kilo verdim ve Melike hanım hazırladığı diyet listesi sayesinde aç kalmadan rahat bir şekilde kilo verdim. Her soruma içten verdiği cevaplar ve önerileri sayesinde hem istediğim hedefe hemde sağlığıma kavuştum. İyi ki Melike hanımı tanıdım ve iyi ki karşıma çıktı. "
   }
 ];
 
@@ -154,7 +154,6 @@ const TestimonialsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
             className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300"
-            onClick={() => setSelectedTestimonial(testimonial)}
           >
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
@@ -168,9 +167,16 @@ const TestimonialsSection = () => {
                 </div>
               </div>
               <p className="text-gray-600 line-clamp-3">{testimonial.comment}</p>
-              <div className="mt-4 flex items-center text-sm text-green-600 font-medium">
-                <span>Detaylı Hikaye</span>
-                <ChevronRight className="w-4 h-4 ml-1" />
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <User className="w-4 h-4 text-gray-400" />
+                  <span className="text-sm text-gray-600">{testimonial.author}</span>
+                </div>
+                <div className="flex items-center">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current text-yellow-400" />
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
