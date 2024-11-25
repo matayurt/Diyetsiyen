@@ -1,3 +1,4 @@
+// app/page.jsx
 'use client';
 import React, { useEffect, useState } from 'react';
 import HomeSection from '@/components/sections/HomeSection';
@@ -7,6 +8,7 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import InstagramSection from '@/components/sections/InstagramSection';
 import ContactSection from '@/components/sections/ContactSection';
 import RecipesSection from '@/components/sections/RecipesSection';
+import CommentsSection from '@/components/sections/CommentsSection';
 import { RecipeProvider } from '@/contexts/RecipeContext';
 import Modal from '@/components/Modal';
 
@@ -14,6 +16,7 @@ const SECTIONS = {
   home: 'Ana Sayfa',
   about: 'Hakkımda',
   packets: 'Paketler',
+  comments: 'Yorumlar',
   testimonials: 'Başarı Hikayeleri',
   recipes: 'Tarifler',
   instagram: 'Instagram',
@@ -236,6 +239,10 @@ export default function HomePage() {
 
           <Section id="packets" className="bg-white/40">
             <PacketsSection />
+          </Section>
+
+          <Section id="comments" className="bg-white/30">
+            <CommentsSection />
           </Section>
 
           <Section id="testimonials" className="bg-white/30">

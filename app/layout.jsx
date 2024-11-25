@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import { RecipeProvider } from '@/contexts/RecipeContext';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { NotificationProvider } from '@/contexts/NotificationContext';
 
 export const metadata = {
   title: 'Diyetisyen Melike Öztürk',
@@ -19,11 +20,13 @@ export default function RootLayout({ children }) {
       <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="bg-gray-100 text-gray-900">
+        <NotificationProvider>
         <RecipeProvider>
         <Navbar />
           {children}
           <SpeedInsights />
         </RecipeProvider>
+        </NotificationProvider>
       </body>
     </html>
   )

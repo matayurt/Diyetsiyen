@@ -1,28 +1,33 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { X, Menu, BookOpen, Home, User, Package, Star, MessageCircle, Share2 } from 'lucide-react';
+import { X, Menu, BookOpen, Home, User, Package, Star, MessageCircle, Share2, Contact } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const menuItems = [
   { href: '#home', label: 'Ana Sayfa', icon: Home },
   { href: '#about', label: 'Hakkımda', icon: User },
   { href: '#packets', label: 'Paketler', icon: Package },
+  { href: '#comments', label: 'Yorumlar', icon: MessageCircle },
   { href: '#testimonials', label: 'Başarı Hikayeleri', icon: Star },
   { href: '#recipes', label: 'Tarifler', icon: BookOpen },
   { href: '#instagram', label: 'Sosyal Medya', icon: Share2 },
-  { href: '#contact', label: 'İletişim', icon: MessageCircle }
+  { href: '#contact', label: 'İletişim', icon: Contact }
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isAdminPage = pathname === '/admin';
+  
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   const handleScroll = useCallback(() => {
-    if (!isMenuOpen) {
+    if (!isMenuOpen && !isAdminPage) {
       const scrollPosition = window.scrollY;
       setScrolled(scrollPosition > 50);
 
@@ -47,11 +52,13 @@ export default function Navbar() {
 
       setActiveSection(currentSection);
     }
-  }, [activeSection, isMenuOpen]);
+  }, [activeSection, isMenuOpen, isAdminPage]);
 
   useEffect(() => {
     setMounted(true);
-    handleScroll();
+    if (!isAdminPage) {
+      handleScroll();
+    }
     
     let scrollTimeout;
     const onScroll = () => {
@@ -61,14 +68,17 @@ export default function Navbar() {
       scrollTimeout = window.requestAnimationFrame(handleScroll);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if (!isAdminPage) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+    
     return () => {
       window.removeEventListener('scroll', onScroll);
       if (scrollTimeout) {
         window.cancelAnimationFrame(scrollTimeout);
       }
     };
-  }, [handleScroll]);
+  }, [handleScroll, isAdminPage]);
 
   useEffect(() => {
     if (mounted) {
@@ -83,6 +93,8 @@ export default function Navbar() {
   }, [isMenuOpen, mounted]);
 
   const handleMenuItemClick = useCallback((e) => {
+    if (isAdminPage) return;
+    
     e.preventDefault();
     const href = e.currentTarget.getAttribute('href');
     const target = document.querySelector(href);
@@ -107,7 +119,7 @@ export default function Navbar() {
         });
       }
     }
-  }, [scrolled, isMenuOpen]);
+  }, [scrolled, isMenuOpen, isAdminPage]);
 
   if (!mounted) return null;
 
@@ -115,7 +127,8 @@ export default function Navbar() {
     <>
       <nav 
         className={`fixed top-0 left-0 w-full transition-all duration-300
-          ${scrolled ? 'h-16 bg-white/95 backdrop-blur-md shadow-lg' : 'h-20 bg-transparent'}
+          ${isAdminPage ? 'h-16 bg-white shadow-lg' : 
+            scrolled ? 'h-16 bg-white/95 backdrop-blur-md shadow-lg' : 'h-20 bg-transparent'}
           ${isMenuOpen ? 'z-[60] bg-[#8aa542]' : 'z-50'}`}
       >
         <div className="container mx-auto px-4 h-full flex items-center justify-between relative">
@@ -132,47 +145,51 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {menuItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={handleMenuItemClick}
-                className={`text-[#8aa542] hover:text-[#6b833a] transition-colors duration-300 
-                  flex items-center gap-2 text-sm font-medium ${activeSection === item.href.slice(1) ? 'text-[#6b833a]' : ''}`}
-              >
-                <item.icon size={18} />
-                <span className="relative">
-                  {item.label}
-                  {activeSection === item.href.slice(1) && (
-                    <motion.span
-                      layoutId="underline"
-                      className="absolute left-0 top-full h-0.5 w-full bg-[#8aa542]"
-                    />
-                  )}
-                </span>
-              </a>
-            ))}
-          </div>
+          {!isAdminPage && (
+            <div className="hidden lg:flex items-center space-x-8">
+              {menuItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={handleMenuItemClick}
+                  className={`text-[#8aa542] hover:text-[#6b833a] transition-colors duration-300 
+                    flex items-center gap-2 text-sm font-medium ${activeSection === item.href.slice(1) ? 'text-[#6b833a]' : ''}`}
+                >
+                  <item.icon size={18} />
+                  <span className="relative">
+                    {item.label}
+                    {activeSection === item.href.slice(1) && (
+                      <motion.span
+                        layoutId="underline"
+                        className="absolute left-0 top-full h-0.5 w-full bg-[#8aa542]"
+                      />
+                    )}
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden relative z-[70] w-10 h-10 flex items-center justify-center"
-            aria-label={isMenuOpen ? 'Menüyü Kapat' : 'Menüyü Aç'}
-          >
-            {isMenuOpen ? (
-              <Menu className="w-6 h-6 text-white" />
-            ) : (
-              <Menu className="w-6 h-6 text-[#8aa542]" />
-            )}
-          </button>
+          {!isAdminPage && (
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden relative z-[70] w-10 h-10 flex items-center justify-center"
+              aria-label={isMenuOpen ? 'Menüyü Kapat' : 'Menüyü Aç'}
+            >
+              {isMenuOpen ? (
+                <Menu className="w-6 h-6 text-white" />
+              ) : (
+                <Menu className="w-6 h-6 text-[#8aa542]" />
+              )}
+            </button>
+          )}
         </div>
       </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isMenuOpen && (
+        {isMenuOpen && !isAdminPage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
