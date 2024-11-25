@@ -16,7 +16,9 @@ import {
   BarChart,
   ArrowLeft,
   AlertCircle,
-  X
+  X,
+  ChevronDown, 
+  ChevronUp
 } from 'lucide-react';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -302,42 +304,67 @@ const CommentForm = ({ formData, setFormData, handleSubmit, submitLoading, setTo
 };
 
 // Comment Card Component
-const CommentCard = ({ comment }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    className="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:-translate-y-1 border border-gray-100/50"
-  >
-    <div className="p-6">
-      <div className="flex items-center gap-4 mb-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-[#8aa542] to-[#6b833a] rounded-full flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform duration-300">
-          <span className="text-white font-semibold text-lg">
-            {comment.name.charAt(0).toUpperCase()}
-          </span>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#8aa542] transition-colors duration-300">
-            {comment.name}
-          </h3>
-          <div className="flex items-center gap-3">
-            <StarRating value={comment.rating} readonly size={16} />
-            <span className="text-sm text-gray-500">
-              {new Date(comment.createdAt).toLocaleDateString('tr-TR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
+const CommentCard = ({ comment }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:-translate-y-1 border border-gray-100/50"
+    >
+      <div className="p-6">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 bg-gradient-to-br from-[#8aa542] to-[#6b833a] rounded-full flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform duration-300">
+            <span className="text-white font-semibold text-lg">
+              {comment.name.charAt(0).toUpperCase()}
             </span>
           </div>
+          <div>
+            <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#8aa542] transition-colors duration-300">
+              {comment.name}
+            </h3>
+            <div className="flex items-center gap-3">
+              <StarRating value={comment.rating} readonly size={16} />
+              <span className="text-sm text-gray-500">
+                {new Date(comment.createdAt).toLocaleDateString('tr-TR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative">
+          <p className={`text-gray-600 group-hover:text-gray-700 transition-colors duration-300 ${isExpanded ? '' : 'line-clamp-4'}`}>
+            {comment.comment}
+          </p>
+          
+          {comment.comment.length > 280 && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-2 text-[#8aa542] hover:text-[#6b833a] text-sm font-medium transition-colors duration-300 flex items-center gap-1.5"
+            >
+              {isExpanded ? (
+                <>
+                  Daha az göster
+                  <ChevronUp className="w-4 h-4" />
+                </>
+              ) : (
+                <>
+                  Devamını göster
+                  <ChevronDown className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
-
-      <p className="text-gray-600 relative z-10 group-hover:text-gray-700 transition-colors duration-300 line-clamp-4">
-        {comment.comment}
-      </p>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 // Main Page Component
 export default function CommentsPage() {
