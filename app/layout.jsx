@@ -5,8 +5,31 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NotificationProvider } from '@/contexts/NotificationContext';
 
 export const metadata = {
-  title: 'Diyetisyen Melike Öztürk',
-  description: 'Diyetisyen Melike Öztürk, sağlıklı yaşam ve beslenme konularında danışmanlık hizmeti vermektedir.',
+  title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Online Diyet Danışmanlığı',
+  description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile online diyet, kişiye özel beslenme programı, kilo verme, kilo alma ve sağlıklı yaşam danışmanlığı. Alanında uzman diyetisyeniniz ile sağlıklı beslenmeye ilk adımı atın.',
+  keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, uzman diyetisyen, beslenme danışmanı, sağlıklı beslenme, kilo verme, kilo alma, metabolizma hızlandırma, sporcu beslenmesi, hamilelik diyeti',
+  openGraph: {
+    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Online Diyet',
+    description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile kişiye özel online diyet ve beslenme danışmanlığı hizmetleri.',
+    type: 'website',
+    locale: 'tr_TR',
+    siteName: 'Diyetisyen Melike Öztürk'
+  },
+  alternates: {
+    canonical: 'https://www.melikeozturk.com'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large'
+    }
+  },
+  verification: {
+    google: 'google-site-verification-code',
+  }
 }
 
 export default function RootLayout({ children }) {
