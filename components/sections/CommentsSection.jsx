@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import StarRating from '../StarRating';
 import { motion } from 'framer-motion';
-import { ChevronRight, MessageSquare, Star, Heart, Loader2 } from 'lucide-react';
+import { ChevronRight, MessageSquare, Star, Heart, Loader2, ChevronDown } from 'lucide-react';
 
 // Dekoratif SVG Komponenti
 const DecorativeElement = ({ className }) => (
@@ -247,19 +247,20 @@ export default function CommentsSection() {
 
       {/* Tüm Yorumları Gör Butonu */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="text-center"
-      >
-        <Link
-          href="/comments"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#8aa542] to-[#8aa542] text-white px-8 py-4 rounded-full font-medium hover:shadow-lg hover:shadow-[#8aa542]-500/20 transition-all duration-300 hover:-translate-y-0.5 group"
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
-          Tüm Yorumları Gör
-          <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </motion.div>
+          <Link
+            href="/comments"
+            className="group relative inline-flex items-center gap-3 px-10 py-4 rounded-xl bg-[#8aa542] text-white hover:bg-[#758e30] transition-all duration-300 overflow-hidden shadow-lg hover:shadow-xl"
+          >
+            <span className="relative z-10 text-lg font-medium">Tüm Yorumları Gör</span>
+            <ChevronDown size={22} className="relative z-10 group-hover:transform group-hover:translate-y-1 transition-transform" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8aa542] to-[#758e30] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+        </motion.div>
     </div>
   );
 }
