@@ -1,4 +1,3 @@
-// components/sections/CommentsSection.jsx
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -100,7 +99,7 @@ export default function CommentsSection() {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch('/api/comments', {
+      const response = await fetch('/api/comments/all', {
         cache: 'no-store'
       });
 
@@ -110,12 +109,13 @@ export default function CommentsSection() {
 
       const data = await response.json();
       
-      // Son 3 yorumu al
+      // Tüm veriden istatistikleri hesapla
+      calculateStats(data);
+      
+      // Sadece son 3 yorumu göster
       const recentComments = data.slice(0, 3);
       setComments(recentComments);
       
-      // İstatistikleri hesapla
-      calculateStats(data);
     } catch (error) {
       console.error('Error fetching comments:', error);
     } finally {
@@ -126,7 +126,7 @@ export default function CommentsSection() {
   const calculateStats = (data) => {
     if (!data.length) return;
 
-    const total = data.length;
+    const total = data.length; // Tüm yorumların sayısı
     const avg = data.reduce((acc, curr) => acc + curr.rating, 0) / total;
     const highRatings = data.filter(comment => comment.rating >= 4).length;
     const satisfactionRate = Math.round((highRatings / total) * 100);

@@ -9,7 +9,7 @@ const AboutSection = () => {
           <div className="relative">
             <div className="absolute -inset-4 bg-blue-100 rounded-full blur-lg opacity-75"></div>
             <img
-              src="/assets/img/dietitian.png"
+              src="/assets/img/dietitian.jpg"
               alt="Diyetisyen Mehmet"
               className="relative w-72 h-72 lg:w-96 lg:h-96 rounded-full object-cover shadow-xl border-4 border-white hover:scale-105 transition-transform duration-300"
               loading="lazy"
