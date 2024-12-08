@@ -49,6 +49,7 @@ export default function RootLayout({ children }) {
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
+        <meta name="google-site-verification" content="xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc" />
       </head>
       <body className="bg-gray-100 text-gray-900">
         <NotificationProvider>
