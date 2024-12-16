@@ -1,8 +1,10 @@
+// app/layout.jsx
 import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import { RecipeProvider } from '@/contexts/RecipeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NotificationProvider } from '@/contexts/NotificationContext'
+import Script from 'next/script'
 
 // Force dynamic rendering and disable cache
 export const dynamic = 'force-dynamic'
@@ -50,6 +52,18 @@ export default function RootLayout({ children }) {
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
         <meta name="google-site-verification" content="xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc" />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-JM4CFF58FK"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JM4CFF58FK');
+          `}
+        </Script>
       </head>
       <body className="bg-gray-100 text-gray-900">
         <NotificationProvider>
