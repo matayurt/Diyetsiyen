@@ -12,12 +12,12 @@ export const revalidate = 0
 export const fetchCache = 'force-no-store'
 
 export const metadata = {
-  title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Online Diyet Danışmanlığı',
-  description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile online diyet, kişiye özel beslenme programı, kilo verme, kilo alma ve sağlıklı yaşam danışmanlığı. Alanında uzman diyetisyeniniz ile sağlıklı beslenmeye ilk adımı atın.',
-  keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, uzman diyetisyen, beslenme danışmanı, sağlıklı beslenme, kilo verme, kilo alma, metabolizma hızlandırma, sporcu beslenmesi, hamilelik diyeti',
+  title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
+  description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online görüşme, beslenme danışmanlığı, sağlıklı beslenme programları. Bilimsel yöntemlerle beslenme alışkanlıklarınızı düzenleyin.',
+  keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, beslenme danışmanı, sağlıklı beslenme, beslenme programı, metabolizma, sporcu beslenmesi, hamilelik beslenmesi',
   openGraph: {
-    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Online Diyet',
-    description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile kişiye özel online diyet ve beslenme danışmanlığı hizmetleri.',
+    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
+    description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online beslenme danışmanlığı hizmetleri.',
     type: 'website',
     locale: 'tr_TR',
     siteName: 'Diyetisyen Melike Öztürk'
