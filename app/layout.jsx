@@ -6,17 +6,12 @@ import { NotificationProvider } from '@/contexts/NotificationContext'
 import Script from 'next/script'
 
 export const metadata = {
-  title: {
-    template: '%s | Diyetisyen Melike Öztürk',
-    default: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
-  },
+  title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
   description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online görüşme, beslenme danışmanlığı, sağlıklı beslenme programları. Bilimsel yöntemlerle beslenme alışkanlıklarınızı düzenleyin.',
   keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, beslenme danışmanı, sağlıklı beslenme, beslenme programı, metabolizma, sporcu beslenmesi, hamilelik beslenmesi',
-  authors: [{ name: 'Diyetisyen Melike Öztürk' }],
-  alternates: {
-    canonical: 'https://www.melikeozturk.com',
-  },
   openGraph: {
+    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
+    description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online beslenme danışmanlığı hizmetleri.',
     type: 'website',
     locale: 'tr_TR',
     url: 'https://www.melikeozturk.com',
