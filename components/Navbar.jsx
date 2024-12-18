@@ -11,7 +11,7 @@ const menuItems = [
   { href: '#about', label: 'Hakkımda', icon: User },
   { href: '#packets', label: 'Paketler', icon: Package },
   { href: '#comments', label: 'Yorumlar', icon: MessageCircle },
-  { href: '#testimonials', label: 'Başarı Hikayeleri', icon: Star },
+  { href: '#testimonials', label: 'Danışan Deneyimleri', icon: Star },
   { href: '#recipes', label: 'Tarifler', icon: BookOpen },
   { href: '#instagram', label: 'Sosyal Medya', icon: Share2 },
   { href: '#contact', label: 'İletişim', icon: Contact }
