@@ -187,10 +187,10 @@ export default function CommentsSection() {
       >
         {/* Ana Başlık */}
         <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#8aa542] to-[#8aa542] bg-clip-text text-transparent">
-          Mutlu Danışanlarımız
+        Danışan Yorumları
         </h2>
         <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-          Sağlıklı yaşam yolculuğunda birlikte ilerlediğimiz danışanlarımızın değerli deneyimleri
+        Beslenme danışmanlığı hizmetimizden faydalanan danışanlarımızın deneyimleri
         </p>
         
         {/* İstatistikler */}

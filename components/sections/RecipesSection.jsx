@@ -50,7 +50,7 @@ const RecipesSection = () => {
           viewport={{ once: true }}
           className="text-4xl font-bold mb-8 text-center text-[#8aa542]"
         >
-          Sağlıklı Yaşam İçin En Popüler Tarifler
+          Sağlıklı Yaşam İçin Tarifler
         </motion.h2>
 
         <div className="mb-8 flex flex-wrap justify-center gap-4">

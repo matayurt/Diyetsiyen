@@ -36,9 +36,9 @@ const testimonials = [
 ];
 
 const statistics = [
-  { icon: <Star className="w-6 h-6" />, value: "1000+", label: "Mutlu Danışan" },
-  { icon: <TrendingUp className="w-6 h-6" />, value: "15.000+", label: "Toplam Verilen Kilo" },
-  { icon: <Star className="w-6 h-6" />, value: "98%", label: "Memnuniyet Oranı" }
+  { icon: <Star className="w-6 h-6" />, value: "1000+", label: "Beslenme Görüşmesi" },
+  { icon: <TrendingUp className="w-6 h-6" />, value: "7 Yıllık", label: "Beslenme Danışmanlığı" },
+  { icon: <Star className="w-6 h-6" />, value: "2000+", label: "Online Takip Görüşmesi" }
 ];
 
 const TestimonialsSection = () => {
@@ -62,10 +62,10 @@ const TestimonialsSection = () => {
         className="text-center mb-16"
       >
         <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-[#8aa542] to-[#8aa542] bg-clip-text text-transparent">
-          Başarı Hikayeleri
+          Danışan Deneyimleri
         </h2>
         <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-          Gerçek insanlar, gerçek sonuçlar. Danışanlarımızın ilham verici dönüşüm hikayeleri.
+        Sağlıklı beslenme yolculuğunda beraber ilerlediğimiz danışanlarımızın görüşleri
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
