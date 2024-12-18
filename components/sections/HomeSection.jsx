@@ -7,17 +7,17 @@ const features = [
   {
     icon: <Leaf className="w-8 h-8 text-green-600" />,
     title: "Sağlıklı Beslenme",
-    description: "Uzman diyetisyeninizle kişiselleştirilmiş beslenme planları"
+    description: "Bireysel beslenme danışmanlığı"
   },
   {
     icon: <Heart className="w-8 h-8 text-red-500" />,
     title: "Yaşam Koçluğu",
-    description: "Sadece diyet değil, yaşam tarzı değişimi için profesyonel destek"
+    description: "Beslenme ve yaşam tarzı danışmanlığı"
   },
   {
     icon: <Brain className="w-8 h-8 text-purple-500" />,
     title: "Zihinsel Sağlık",
-    description: "Beden ve zihin sağlığı için bütünsel yaklaşım"
+    description: "Sağlıklı beslenme danışmanlığı"
   }
 ];
 
@@ -44,8 +44,7 @@ const HomeSection = () => {
         </h1>
         
         <p className="text-xl md:text-2xl mb-8 text-gray-700 max-w-2xl mx-auto leading-relaxed">
-          Diyetisyeninizle birlikte sağlıklı yaşama adım atın ve hayalinizdeki 
-          bedene kavuşun
+        Sağlıklı beslenme ile yaşam kalitenizi artırın. Online ve yüz yüze beslenme danışmanlığı.
         </p>
 
         <motion.div

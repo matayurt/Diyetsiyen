@@ -6,60 +6,60 @@ import { Check, Phone, Star, Crown, CalendarClock, MessageCircle, Video, Shield 
 const packages = [
   {
     id: 1,
-    title: "Başlangıç Paketi",
+    title: "Temel Beslenme Danışmanlığı",
     price: "1500",
     duration: "ay",
-    highlight: "Sağlıklı yaşama ilk adım",
+    highlight: "Beslenme danışmanlığı",
     color: "green",
     icon: <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center">
       <CalendarClock className="w-8 h-8 text-green-600" />
     </div>,
     mainFeatures: [
-      { icon: <MessageCircle className="w-5 h-5" />, text: "2 Sesli Görüşme" },
-      { icon: <CalendarClock className="w-5 h-5" />, text: "4 Haftalık Program" },
-      { icon: <Shield className="w-5 h-5" />, text: "10:00-20:00 Destek" },
+      { icon: <MessageCircle className="w-5 h-5" />, text: "2 Online Görüşme" },
+      { icon: <CalendarClock className="w-5 h-5" />, text: "1 Aylık Beslenme Danışmanlığı" },
+      { icon: <Shield className="w-5 h-5" />, text: "Mesai Saatleri İçinde İletişim" },
     ],
-    highlightFeature: "2 Haftada 1 Online Kontrol"
+    highlightFeature: "2 Haftada 1 Görüşme"
   },
   {
     id: 2,
-    title: "Premium Paket",
+    title: "Standart Beslenme Danışmanlığı",
     price: "2200",
-    duration: "ay",
+    duration: "ay", 
     popular: true,
-    tag: "En Çok Tercih Edilen",
-    highlight: "Tam kapsamlı destek",
+    tag: "Tercih Edilen",
+    highlight: "Düzenli görüşmeler",
     color: "blue",
     icon: <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
       <Star className="w-8 h-8 text-blue-600" />
     </div>,
     mainFeatures: [
-      { icon: <Video className="w-5 h-5" />, text: "1 Görüntülü + 3 Sesli Görüşme" },
-      { icon: <CalendarClock className="w-5 h-5" />, text: "4 Haftalık Detaylı Program" },
-      { icon: <Shield className="w-5 h-5" />, text: "10:00-20:00 Öncelikli Destek" },
+      { icon: <Video className="w-5 h-5" />, text: "3 Online Görüşme + 1 Görüntülü Görüşme" },
+      { icon: <CalendarClock className="w-5 h-5" />, text: "1 Aylık Beslenme Planı" },
+      { icon: <Shield className="w-5 h-5" />, text: "Mesai Saatleri İçinde İletişim" },
     ],
-    highlightFeature: "10 Günde 1 Online Kontrol + 1 Görüntülü Görüşme",
-    extraFeatures: ["Alternatif Menüler", "Yemek Tarifleri", "Daha Sık Görüşme"]
+    highlightFeature: "10 Günde 1 Görüşme",
+    extraFeatures: ["Örnek Menüler", "Beslenme Önerileri", "Haftalık Görüşme"]
   },
   {
     id: 3,
-    title: "VIP Paket",
+    title: "Kapsamlı Beslenme Danışmanlığı",
     price: "2500",
     duration: "ay",
-    highlight: "Maksimum sonuç ve ayrıcalıklar",
+    highlight: "Sık görüşmeli danışmanlık",
     color: "purple",
     icon: <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
       <Crown className="w-8 h-8 text-purple-600" />
     </div>,
     mainFeatures: [
-      { icon: <Video className="w-5 h-5" />, text: "2 Görüntülü + 2 Sesli Görüşme" },
-      { icon: <CalendarClock className="w-5 h-5" />, text: "4 Haftalık Premium Program" },
-      { icon: <Shield className="w-5 h-5" />, text: "10:00-22:00 VIP Destek" },
+      { icon: <Video className="w-5 h-5" />, text: "2 Online Görüşme + 2 Görüntülü Görüşme" },
+      { icon: <CalendarClock className="w-5 h-5" />, text: "1 Aylık Beslenme Danışmanlığı" },
+      { icon: <Shield className="w-5 h-5" />, text: "Genişletilmiş Saat Dilimi" },
     ],
-    highlightFeature: "Haftada 1 Birebir Kontrol",
-    extraFeatures: ["Acil Destek", "VIP Grup Üyeliği", "Cumartesi Özel Destek"]
+    highlightFeature: "Haftada 1 Görüşme",
+    extraFeatures: ["Ek Görüşme İmkanı", "Grup Çalışmaları", "Cumartesi Görüşme"]
   }
-];
+ ];
 
 const PacketsSection = () => {
   const [hoveredPackage, setHoveredPackage] = useState(null);
@@ -83,7 +83,7 @@ const PacketsSection = () => {
             Online Diyet Paketleri
           </motion.h2>
           <p className="text-gray-600 text-lg mb-4">
-            Size özel hazırlanmış beslenme programları ile hayalinizdeki bedene kavuşun
+          Bilimsel beslenme danışmanlığı ile daha sağlıklı bir yaşam
           </p>
         </div>
 
