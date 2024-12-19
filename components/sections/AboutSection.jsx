@@ -28,13 +28,13 @@ const AboutSection = () => {
             </h2>
             <div className="space-y-6 text-gray-700">
               <p className="text-lg leading-relaxed">
-                Sağlıklı yaşam ve beslenme konusunda uzmanlaşmış bir profesyonelim.
-                Amacım, <span className="font-medium text-gray-900">doğru beslenme alışkanlıklarıyla</span> insanların sağlıklı bir yaşam sürmelerine yardımcı olmak.
+                Beslenme ve diyet uzmanı olarak hizmet sunuyorum. 2018'de Özel İzmit Konak Hastanesi'ndeki deneyimimle başlayan meslek hayatım, 2020'de
+                <span className="font-medium text-gray-900">DİYETTEİZ beslenme danışmanlık merkezini</span> kurmamla devam etti.
               </p>
               <p className="text-lg leading-relaxed">
-                Meslek hayatıma 2018 yılında Özel İzmit Konak Hastanesinde başladım. 2020 yılında kendi danışmanlık merkezimi kurmaya karar verdim. 
-                <span className="font-medium text-gray-900"> DİYETTEİZ beslenme ve diyet danışmanlık merkezini kurdum. </span> 
-                Şu an aktif olarak yüz yüze ve online diyet olarak hizmet vermekteyim. 
+                Danışmanlık merkezimizde ve online platformlarda randevu seçenekleriyle hizmet vermekteyim. 
+                <span className="font-medium text-gray-900"> Güncel beslenme yaklaşımları </span> 
+                ve uzman diyetisyen deneyimiyle danışanlarıma destek oluyorum. 
               </p>
             </div>
 
