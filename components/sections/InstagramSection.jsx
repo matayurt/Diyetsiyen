@@ -67,7 +67,7 @@ const SocialMediaSection = () => {
   const posts = [
     {
       type: "before-after",
-      title: "Başarı Hikayeleri",
+      title: "Danışan Deneyimleri",
       description: "-25 KG / 3 Ay",
       engagement: { likes: "2.4K", comments: "186" },
       platform: "instagram"
@@ -96,7 +96,7 @@ const SocialMediaSection = () => {
         </h4>
         <h2 className="text-4xl font-bold mb-4">Sağlıklı Yaşam Topluluğumuz</h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Motivasyon, başarı hikayeleri, sağlıklı tarifler ve daha fazlası için sosyal medyada bizi takip edin!
+          Motivasyon, danışan deneyimleri, sağlıklı tarifler ve daha fazlası için sosyal medyada bizi takip edin!
         </p>
       </div>
 

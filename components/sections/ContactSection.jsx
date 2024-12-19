@@ -125,7 +125,7 @@ const ContactSection = () => {
                   <div>
                     <h4 className="font-medium text-gray-900 text-sm">Çalışma Saatleri</h4>
                     <p className="text-gray-600 text-sm">Hafta içi: 10:00 - 20:00</p>
-                    <p className="text-gray-600 text-sm">Cumartesi: 09:00 - 14:00(VIP Paketlere Özel)</p>
+                    <p className="text-gray-600 text-sm">Cumartesi: 09:00 - 14:00(Kapsamlı Paketlere Özel)</p>
                   </div>
                 </div>
               </div>
