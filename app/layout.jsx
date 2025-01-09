@@ -1,4 +1,3 @@
-// app/layout.jsx
 import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import { RecipeProvider } from '@/contexts/RecipeContext'
@@ -6,18 +5,17 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NotificationProvider } from '@/contexts/NotificationContext'
 import Script from 'next/script'
 
-// Force dynamic rendering and disable cache
 export const dynamic = 'force-dynamic'
-export const revalidate = 0
+export const revalidate = 0 
 export const fetchCache = 'force-no-store'
 
 export const metadata = {
-  title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
-  description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online görüşme, beslenme danışmanlığı, sağlıklı beslenme programları. Bilimsel yöntemlerle beslenme alışkanlıklarınızı düzenleyin.',
-  keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, beslenme danışmanı, sağlıklı beslenme, beslenme programı, metabolizma, sporcu beslenmesi, hamilelik beslenmesi',
+  title: 'Kocaeli Diyetisyen | İzmit Diyetisyen Melike Öztürk',
+  description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile online diyet, beslenme danışmanlığı ve kişiye özel beslenme programları. 10 yıllık tecrübe ile bilimsel ve sağlıklı beslenme.',
+  keywords: 'kocaeli diyetisyen, izmit diyetisyen, Melike Öztürk, online diyet, beslenme danışmanı, diyetisyen izmit, diyetisyen kocaeli, sağlıklı beslenme, kilo verme, sporcu beslenmesi, hamilelik beslenmesi',
   openGraph: {
-    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
-    description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online beslenme danışmanlığı hizmetleri.',
+    title: 'Kocaeli Diyetisyen | İzmit Diyetisyen Melike Öztürk',
+    description: 'Kocaeli ve İzmit\'in deneyimli diyetisyeni Melike Öztürk ile sağlıklı beslenme ve kişiye özel diyet programları.',
     type: 'website',
     locale: 'tr_TR',
     siteName: 'Diyetisyen Melike Öztürk'
@@ -31,11 +29,13 @@ export const metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-image-preview': 'large'
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1
     }
   },
   verification: {
-    google: 'google-site-verification-code',
+    google: 'xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc',
   }
 }
 
