@@ -403,14 +403,9 @@ const Section = ({ id, className, children }) => (
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState('home');
   const [isClient, setIsClient] = useState(false);
-  const searchParams = useSearchParams();
-  const service = searchParams.get('service');
 
   useEffect(() => {
     setIsClient(true);
-    
-    // SEO meta tag güncellemesi
-    updateMetaTags(service);
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 2;
