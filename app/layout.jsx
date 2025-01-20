@@ -5,23 +5,38 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NotificationProvider } from '@/contexts/NotificationContext'
 import Script from 'next/script'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0 
-export const fetchCache = 'force-no-store'
-
 export const metadata = {
-  title: 'Kocaeli Diyetisyen | İzmit Diyetisyen Melike Öztürk',
-  description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile online diyet, beslenme danışmanlığı ve kişiye özel beslenme programları. 10 yıllık tecrübe ile bilimsel ve sağlıklı beslenme.',
-  keywords: 'kocaeli diyetisyen, izmit diyetisyen, Melike Öztürk, online diyet, beslenme danışmanı, diyetisyen izmit, diyetisyen kocaeli, sağlıklı beslenme, kilo verme, sporcu beslenmesi, hamilelik beslenmesi',
+  title: {
+    template: '%s | Diyetisyen Melike Öztürk',
+    default: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
+  },
+  description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online görüşme, beslenme danışmanlığı, sağlıklı beslenme programları. Bilimsel yöntemlerle beslenme alışkanlıklarınızı düzenleyin.',
+  keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, beslenme danışmanı, sağlıklı beslenme, beslenme programı, metabolizma, sporcu beslenmesi, hamilelik beslenmesi',
+  authors: [{ name: 'Diyetisyen Melike Öztürk' }],
+  alternates: {
+    canonical: 'https://www.melikeozturk.com',
+  },
   openGraph: {
-    title: 'Kocaeli Diyetisyen | İzmit Diyetisyen Melike Öztürk',
-    description: 'Kocaeli ve İzmit\'in deneyimli diyetisyeni Melike Öztürk ile sağlıklı beslenme ve kişiye özel diyet programları.',
     type: 'website',
     locale: 'tr_TR',
-    siteName: 'Diyetisyen Melike Öztürk'
+    url: 'https://www.melikeozturk.com',
+    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
+    description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online beslenme danışmanlığı hizmetleri.',
+    siteName: 'Diyetisyen Melike Öztürk',
+    images: [
+      {
+        url: 'https://www.melikeozturk.com/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Diyetisyen Melike Öztürk',
+      },
+    ],
   },
-  alternates: {
-    canonical: 'https://www.melikeozturk.com'
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
+    description: 'Kocaeli ve İzmit\'te profesyonel diyet danışmanlığı hizmetleri.',
+    images: ['https://www.melikeozturk.com/images/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -29,14 +44,14 @@ export const metadata = {
     googleBot: {
       index: true,
       follow: true,
+      'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
-      'max-video-preview': -1
-    }
+    },
   },
-  verification: {
-    google: 'xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc',
-  }
+  other: {
+    'google-site-verification': 'xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc'
+  },
 }
 
 export default function RootLayout({ children }) {
@@ -48,10 +63,8 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta httpEquiv="Pragma" content="no-cache" />
-        <meta httpEquiv="Expires" content="0" />
-        <meta name="google-site-verification" content="xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc" />
+        
+        {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-JM4CFF58FK"

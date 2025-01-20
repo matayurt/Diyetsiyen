@@ -1,6 +1,8 @@
 // app/page.jsx
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Script from 'next/script';
 import HomeSection from '@/components/sections/HomeSection';
 import AboutSection from '@/components/sections/AboutSection';
 import PacketsSection from '@/components/sections/PacketsSection';
@@ -11,6 +13,81 @@ import RecipesSection from '@/components/sections/RecipesSection';
 import CommentsSection from '@/components/sections/CommentsSection';
 import { RecipeProvider } from '@/contexts/RecipeContext';
 import Modal from '@/components/Modal';
+
+// SEO için schema verisi
+const getSchemaData = () => {
+  const baseSchema = {
+    "@context": "https://schema.org",
+    "@type": "DietitianOffice",
+    "name": "Diyetisyen Melike Öztürk",
+    "image": "https://www.melikeozturk.com/images/office.jpg",
+    "@id": "https://www.melikeozturk.com",
+    "url": "https://www.melikeozturk.com",
+    "telephone": "+905541889160",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "İzmit",
+      "addressRegion": "Kocaeli",
+      "addressCountry": "TR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.7654,
+      "longitude": 29.9408
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "10:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "10:00",
+        "closes": "14:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/dyt.melikeozturk/",
+      "https://www.facebook.com/dyt.melikeozturkk/"
+    ]
+  };
+
+  return JSON.stringify(baseSchema);
+};
+
+// SEO meta tag güncelleyici
+const updateMetaTags = (service) => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  const metaTitle = document.querySelector('title');
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  const canonical = document.querySelector('link[rel="canonical"]');
+
+  const baseUrl = 'https://www.melikeozturk.com';
+
+  switch (service) {
+    case 'izmit':
+      metaTitle.textContent = 'İzmit Diyetisyen | Uzman Diyet Danışmanlığı - Melike Öztürk';
+      metaDescription.content = 'İzmit\'te profesyonel diyetisyen hizmetleri. Online ve yüz yüze diyet danışmanlığı, kişiye özel beslenme programları.';
+      canonical.href = `${baseUrl}/izmit-diyetisyen`;
+      break;
+    case 'kocaeli':
+      metaTitle.textContent = 'Kocaeli Diyetisyen | Beslenme Danışmanlığı - Melike Öztürk';
+      metaDescription.content = 'Kocaeli\'de uzman diyetisyen hizmetleri. Bilimsel ve güncel yaklaşımlarla kişiye özel beslenme programları.';
+      canonical.href = `${baseUrl}/kocaeli-diyetisyen`;
+      break;
+    default:
+      metaTitle.textContent = 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı';
+      metaDescription.content = 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile sağlıklı beslenme ve diyet programları. Online diyet danışmanlığı hizmetleri.';
+      canonical.href = baseUrl;
+  }
+
+  if (ogTitle) ogTitle.content = metaTitle.textContent;
+  if (ogDesc) ogDesc.content = metaDescription.content;
+};
 
 const Footer = () => (
   <footer className="relative w-full bg-gradient-to-b from-white/80 to-green-50/50 backdrop-blur-sm border-t border-green-100">
@@ -314,10 +391,15 @@ const Section = ({ id, className, children }) => (
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState('home');
   const [isClient, setIsClient] = useState(false);
+  const searchParams = useSearchParams();
+  const service = searchParams.get('service');
 
   useEffect(() => {
     setIsClient(true);
     
+    // SEO meta tag güncellemesi
+    updateMetaTags(service);
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       const sections = Object.keys(SECTIONS).map(id => ({
@@ -336,6 +418,11 @@ export default function HomePage() {
   return (
     <RecipeProvider>
       <main className="relative min-h-screen overflow-x-hidden">
+        {/* Schema.org verisi */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getSchemaData() }}
+        />
         {/* Fixed background gradients */}
         <div className="fixed inset-0 -z-50 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-b from-white via-green-50/50 to-white" />
