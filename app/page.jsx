@@ -2,6 +2,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import Script from 'next/script';
 import HomeSection from '@/components/sections/HomeSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -87,6 +88,17 @@ const updateMetaTags = (service) => {
 
   if (ogTitle) ogTitle.content = metaTitle.textContent;
   if (ogDesc) ogDesc.content = metaDescription.content;
+};
+
+const ServiceHandler = () => {
+  const searchParams = useSearchParams();
+  const service = searchParams.get('service');
+  
+  useEffect(() => {
+    updateMetaTags(service);
+  }, [service]);
+  
+  return null;
 };
 
 const Footer = () => (
@@ -418,6 +430,9 @@ export default function HomePage() {
   return (
     <RecipeProvider>
       <main className="relative min-h-screen overflow-x-hidden">
+      <Suspense fallback={null}>
+          <ServiceHandler />
+        </Suspense>
         {/* Schema.org verisi */}
         <script
           type="application/ld+json"
