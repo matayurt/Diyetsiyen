@@ -15,7 +15,6 @@ import CommentsSection from '@/components/sections/CommentsSection';
 import { RecipeProvider } from '@/contexts/RecipeContext';
 import Modal from '@/components/Modal';
 
-<<<<<<< HEAD
 // SEO için schema verisi
 const getSchemaData = () => {
   const baseSchema = {
@@ -102,8 +101,6 @@ const ServiceHandler = () => {
   return null;
 };
 
-=======
->>>>>>> 8a97665 (GoogleAds)
 const Footer = () => (
   <footer className="relative w-full bg-gradient-to-b from-white/80 to-green-50/50 backdrop-blur-sm border-t border-green-100">
     <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-12">

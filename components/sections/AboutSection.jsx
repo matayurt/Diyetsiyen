@@ -21,7 +21,7 @@ const AboutSection = () => {
         </div>
 
         <div className="lg:w-3/5 space-y-8">
-          <div className="text-left">
+        <div className="text-left">
             <h4 className="text-[#8aa542] font-semibold text-lg mb-2">Merhaba, Ben</h4>
             <h2 className="text-4xl font-bold mb-6">
               Diyetisyen <span className="text-[#8aa542]">Melike Öztürk</span>

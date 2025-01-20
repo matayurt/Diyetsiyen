@@ -7,6 +7,7 @@ const packages = [
   {
     id: 1,
     title: "Temel Beslenme Danışmanlığı",
+    originalPrice: "1875",
     price: "1500",
     duration: "ay",
     highlight: "Beslenme danışmanlığı",
@@ -24,6 +25,7 @@ const packages = [
   {
     id: 2,
     title: "Standart Beslenme Danışmanlığı",
+    originalPrice: "2750",
     price: "2200",
     duration: "ay", 
     popular: true,
@@ -44,6 +46,7 @@ const packages = [
   {
     id: 3,
     title: "Kapsamlı Beslenme Danışmanlığı",
+    originalPrice: "3125",
     price: "2500",
     duration: "ay",
     highlight: "Sık görüşmeli danışmanlık",
@@ -83,8 +86,16 @@ const PacketsSection = () => {
             Online Diyet Paketleri
           </motion.h2>
           <p className="text-gray-600 text-lg mb-4">
-          Bilimsel beslenme danışmanlığı ile daha sağlıklı bir yaşam
+            Bilimsel beslenme danışmanlığı ile daha sağlıklı bir yaşam
           </p>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block bg-red-100 text-red-600 px-4 py-2 rounded-lg font-medium"
+          >
+            🎄 Yılbaşına Özel %20 İndirim! 🎄
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
