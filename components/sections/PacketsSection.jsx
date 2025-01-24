@@ -69,6 +69,12 @@ const PacketsSection = () => {
   const [hoveredPackage, setHoveredPackage] = useState(null);
   
   const handlePackageSelect = (packageTitle, packagePrice) => {
+    // Debug için console.log ekleyelim
+    console.log('Package clicked:', {
+      package_name: packageTitle,
+      package_price: packagePrice
+    });
+
     // PostHog event tracking
     posthog.capture('package_call_clicked', {
       package_name: packageTitle,
