@@ -1,8 +1,10 @@
+// app/layout.jsx
 import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import { RecipeProvider } from '@/contexts/RecipeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NotificationProvider } from '@/contexts/NotificationContext'
+import { CSPostHogProvider } from './providers'
 import Script from 'next/script'
 
 export const metadata = {
@@ -63,7 +65,6 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
@@ -79,13 +80,15 @@ export default function RootLayout({ children }) {
         </Script>
       </head>
       <body className="bg-gray-100 text-gray-900">
-        <NotificationProvider>
-          <RecipeProvider>
-            <Navbar />
-            {children}
-            <SpeedInsights />
-          </RecipeProvider>
-        </NotificationProvider>
+        <CSPostHogProvider>
+          <NotificationProvider>
+            <RecipeProvider>
+              <Navbar />
+              {children}
+              <SpeedInsights />
+            </RecipeProvider>
+          </NotificationProvider>
+        </CSPostHogProvider>
       </body>
     </html>
   )

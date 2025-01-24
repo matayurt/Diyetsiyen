@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Phone, Star, Crown, CalendarClock, MessageCircle, Video, Shield } from 'lucide-react';
+import posthog from 'posthog-js';
 
 const packages = [
   {
@@ -62,12 +63,21 @@ const packages = [
     highlightFeature: "Haftada 1 Görüşme",
     extraFeatures: ["Ek Görüşme İmkanı", "Grup Çalışmaları", "Cumartesi Görüşme"]
   }
- ];
+];
 
 const PacketsSection = () => {
   const [hoveredPackage, setHoveredPackage] = useState(null);
   
-  const handlePackageSelect = (packageTitle) => {
+  const handlePackageSelect = (packageTitle, packagePrice) => {
+    // PostHog event tracking
+    posthog.capture('package_call_clicked', {
+      package_name: packageTitle,
+      package_price: packagePrice,
+      location: window.location.pathname,
+      timestamp: new Date().toISOString()
+    });
+
+    // Mevcut telefon açma işlemi
     const phoneNumber = "05541889160";
     const formattedNumber = phoneNumber.replace(/\D/g, '');
     window.location.href = `tel:${formattedNumber}`;
@@ -170,7 +180,7 @@ const PacketsSection = () => {
               )}
 
               <button 
-                onClick={() => handlePackageSelect(pkg.title)}
+                onClick={() => handlePackageSelect(pkg.title, pkg.price)}
                 className={`relative w-full py-3 px-6 rounded-lg transition-colors duration-200 font-medium flex items-center justify-center space-x-2
                   ${pkg.popular
                     ? 'bg-[#8aa542] hover:bg-[#758e30] text-white'
