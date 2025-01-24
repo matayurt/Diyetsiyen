@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["instagram.com", "facebook.com"],
+    domains: [
+      "instagram.com",
+      "facebook.com",
+      "app.posthog.com",
+      "us.i.posthog.com",
+    ],
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96],
     minimumCacheTTL: 60,
@@ -9,7 +14,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   poweredByHeader: false,
-
   headers: async () => {
     return [
       {
@@ -35,11 +39,22 @@ const nextConfig = {
             key: "X-Content-Type-Options",
             value: "nosniff",
           },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, PUT, DELETE, OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "X-Requested-With, Content-Type, Authorization",
+          },
         ],
       },
     ];
   },
-
   async rewrites() {
     return [
       {
@@ -56,11 +71,9 @@ const nextConfig = {
       },
     ];
   },
-
   experimental: {
     serverActions: true,
   },
-
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
