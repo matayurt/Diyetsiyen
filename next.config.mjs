@@ -20,6 +20,10 @@ const nextConfig = {
         source: "/:path*",
         headers: [
           {
+            key: "Access-Control-Allow-Origin",
+            value: "https://us.posthog.com",
+          },
+          {
             key: "Cache-Control",
             value: "no-store, no-cache, must-revalidate, proxy-revalidate",
           },
