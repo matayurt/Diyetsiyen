@@ -16,7 +16,7 @@ import { RecipeProvider } from '@/contexts/RecipeContext';
 import Modal from '@/components/Modal';
 
 // SEO için schema verisi
-const getSchemaData = () => {
+const getSchemaData = (service) => {
   const baseSchema = {
     "@context": "https://schema.org",
     "@type": "DietitianOffice",
@@ -56,7 +56,14 @@ const getSchemaData = () => {
     ]
   };
 
-  return JSON.stringify(baseSchema);
+  if (service) {
+    baseSchema.url = `https://www.melikeozturk.com/${service}-diyetisyen`;
+    baseSchema.name = `${service.charAt(0).toUpperCase() + service.slice(1)} Diyetisyen | Uzman Diyet Danışmanlığı - Melike Öztürk`;
+    baseSchema.description = `${service.charAt(0).toUpperCase() + service.slice(1)}\'te uzman diyetisyen hizmetleri. Bilimsel ve güncel yaklaşımlarla kişiye özel beslenme programları.`;
+    baseSchema.image = `https://www.melikeozturk.com/images/${service}-diyetisyen.jpg`;
+  }
+
+  return baseSchema;
 };
 
 // SEO meta tag güncelleyici
@@ -95,7 +102,26 @@ const ServiceHandler = () => {
   const service = searchParams.get('service');
   
   useEffect(() => {
+    const baseUrl = 'https://www.melikeozturk.com';
+    const currentPath = window.location.pathname;
+    
+    // Dinamik meta tag güncellemeleri
     updateMetaTags(service);
+    
+    // Canonical URL güncelleme
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.href = service ? 
+        `${baseUrl}/${service}-diyetisyen` : 
+        `${baseUrl}${currentPath}`;
+    }
+    
+    // Structured Data güncelleme
+    const script = document.querySelector('#structuredData');
+    if (script) {
+      const schemaData = getSchemaData(service);
+      script.innerHTML = JSON.stringify(schemaData);
+    }
   }, [service]);
   
   return null;
