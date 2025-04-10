@@ -103,7 +103,7 @@ export default function RootLayout({ children }) {
         {/* Özel Analitik İzleme Kodu */}
         <Script
           strategy="afterInteractive"
-          src="http://localhost:3000/analytics.js"
+          src="https://dashboard-website-rust.vercel.app/analytics.js"
         />
         <Script id="custom-analytics" strategy="afterInteractive">
           {`
