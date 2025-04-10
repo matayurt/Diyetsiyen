@@ -1,31 +1,48 @@
+// app/layout.jsx
 import '../styles/globals.css'
 import Navbar from '@/components/Navbar'
 import { RecipeProvider } from '@/contexts/RecipeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NotificationProvider } from '@/contexts/NotificationContext'
+import { CSPostHogProvider } from './providers'
 import Script from 'next/script'
 
 export const metadata = {
+  metadataBase: new URL('https://www.melikeozturk.com'),
   title: {
     template: '%s | Diyetisyen Melike Öztürk',
     default: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
   },
-  description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online görüşme, beslenme danışmanlığı, sağlıklı beslenme programları. Bilimsel yöntemlerle beslenme alışkanlıklarınızı düzenleyin.',
-  keywords: 'diyetisyen, Melike Öztürk, Kocaeli diyetisyen, İzmit diyetisyen, online diyet, beslenme danışmanı, sağlıklı beslenme, beslenme programı, metabolizma, sporcu beslenmesi, hamilelik beslenmesi',
+  description: 'Kocaeli ve İzmit\'te uzman diyetisyen Melike Öztürk ile sağlıklı beslenme ve kişiye özel diyet programları. Online diyet danışmanlığı hizmetleri.',
+  keywords: [
+    'diyetisyen', 'Melike Öztürk', 'Kocaeli diyetisyen', 'İzmit diyetisyen',
+    'online diyet', 'beslenme danışmanı', 'sağlıklı beslenme', 'kilo verme',
+    'kilo alma', 'sporcu beslenmesi', 'hamilelik beslenmesi', 'çocuk beslenmesi'
+  ].join(', '),
   authors: [{ name: 'Diyetisyen Melike Öztürk' }],
+  creator: 'Diyetisyen Melike Öztürk',
+  publisher: 'Diyetisyen Melike Öztürk',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   alternates: {
-    canonical: 'https://www.melikeozturk.com',
+    canonical: '/',
+    languages: {
+      'tr-TR': '/',
+    },
   },
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://www.melikeozturk.com',
-    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
-    description: 'Kocaeli ve İzmit\'te diyetisyen Melike Öztürk ile online beslenme danışmanlığı hizmetleri.',
+    url: '/',
     siteName: 'Diyetisyen Melike Öztürk',
+    title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet Danışmanlığı',
+    description: 'Kocaeli ve İzmit\'te uzman diyetisyen hizmetleri. Bilimsel ve güncel yaklaşımlarla kişiye özel beslenme programları.',
     images: [
       {
-        url: 'https://www.melikeozturk.com/images/og-image.jpg',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Diyetisyen Melike Öztürk',
@@ -36,11 +53,19 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Diyetisyen Melike Öztürk | Kocaeli İzmit Diyet',
     description: 'Kocaeli ve İzmit\'te profesyonel diyet danışmanlığı hizmetleri.',
-    images: ['https://www.melikeozturk.com/images/og-image.jpg'],
+    images: ['/images/og-image.jpg'],
+    creator: '@dyt_melikeozturk',
+  },
+  verification: {
+    google: 'xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc',
+    other: {
+      'facebook-domain-verification': '[Facebook doğrulama kodunuz]'
+    }
   },
   robots: {
     index: true,
     follow: true,
+    nocache: true,
     googleBot: {
       index: true,
       follow: true,
@@ -48,9 +73,6 @@ export const metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  other: {
-    'google-site-verification': 'xEsC2s7B44Act0oO7Ar6EE5IWA0rvduKTPjnUYwESmc'
   },
 }
 
@@ -77,15 +99,30 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-JM4CFF58FK');
           `}
         </Script>
+
+        {/* Özel Analitik İzleme Kodu */}
+        <Script
+          strategy="afterInteractive"
+          src="http://localhost:3000/analytics.js"
+        />
+        <Script id="custom-analytics" strategy="afterInteractive">
+          {`
+            window.onload = function() {
+              new Analytics('3f11ad691f450de4136ffa61da71ab98').trackPageView();
+            }
+          `}
+        </Script>
       </head>
       <body className="bg-gray-100 text-gray-900">
-        <NotificationProvider>
-          <RecipeProvider>
-            <Navbar />
-            {children}
-            <SpeedInsights />
-          </RecipeProvider>
-        </NotificationProvider>
+        <CSPostHogProvider>
+          <NotificationProvider>
+            <RecipeProvider>
+              <Navbar />
+              {children}
+              <SpeedInsights />
+            </RecipeProvider>
+          </NotificationProvider>
+        </CSPostHogProvider>
       </body>
     </html>
   )
